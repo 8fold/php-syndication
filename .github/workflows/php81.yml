@@ -1,0 +1,34 @@
+name: PHP 8.1
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup PHP Action
+        uses: shivammathur/setup-php@2.15.0
+        with:
+          php-version: '8.1'
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Run style check
+        run: composer run style
+
+      - name: Run static analyzer
+        run: composer run stan
+
+      - name: Run tests
+        run: composer run test

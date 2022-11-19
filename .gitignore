@@ -1,0 +1,9 @@
+vendor/
+node_modules/
+npm-debug.log
+yarn-error.log
+
+.env
+/.vagrant
+.phpunit.result.cache
+.DS_Store

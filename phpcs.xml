@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ruleset name="8fold PSR12">
+	<description>PHP-FIG PSR-12 standards with modifications to: control structure (empty space before closing brace).</description>
+
+	<file>src</file>
+
+	<exclude-pattern>*/src/assets/*/**$</exclude-pattern>
+
+	<arg name="colors" />
+
+ 	<rule ref="PSR12">
+ 		<!-- 8fold prefers one empty before the closing of control strcuctures
+ 			in most cases -->
+ 		<exclude name="Squiz.WhiteSpace.ControlStructureSpacing.SpacingBeforeClose"/>
+ 		<!-- We separate `use` clauses, all other PSR12 whitespace rules should apply -->
+ 		<exclude name="PSR12.Files.FileHeader"/>
+ 	</rule>
+	<rule ref="Generic.Files.LineLength">
+		<properties>
+			<property phpcs-only="true" name="lineLimit" value="100"/>
+			<property phpcbf-only="true" name="lineLimit" value="120"/>
+		</properties>
+	</rule>
+</ruleset>
