@@ -16,18 +16,21 @@ use Eightfold\Syndication\Source;
 
 class Item implements Buildable
 {
+    /**
+     * @var Category[]
+     */
     private array $categories = [];
 
     public static function create(
-        string $title         = '',
-        string $description   = '',
-        ?DateTime $pubDate    = null,
-        string $author        = '',
-        string $link          = '',
-        ?Guid $guid           = null,
-        string $comments      = '',
+        string $title = '',
+        string $description = '',
+        ?DateTime $pubDate = null,
+        string $author = '',
+        string $link = '',
+        ?Guid $guid = null,
+        string $comments = '',
         ?Enclosure $enclosure = null,
-        ?Source $source       = null
+        ?Source $source = null
     ): self {
         return new self(
             $title,
@@ -43,18 +46,21 @@ class Item implements Buildable
     }
 
     final private function __construct(
-        readonly private string $title         = '',
-        readonly private string $description   = '',
-        readonly private ?DateTime $pubDate    = null,
-        readonly private string $author        = '',
-        readonly private string $link          = '',
-        readonly private ?Guid $guid           = null,
-        readonly private string $comments      = '',
+        readonly private string $title = '',
+        readonly private string $description = '',
+        readonly private ?DateTime $pubDate = null,
+        readonly private string $author = '',
+        readonly private string $link = '',
+        readonly private ?Guid $guid = null,
+        readonly private string $comments = '',
         readonly private ?Enclosure $enclosure = null,
-        readonly private ?Source $source       = null
+        readonly private ?Source $source = null
     ) {
     }
 
+    /**
+     * @param Category $categories
+     */
     public function categories(Category ...$categories): self
     {
         $this->categories = $categories;

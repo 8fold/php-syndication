@@ -12,13 +12,16 @@ use Eightfold\XMLBuilder\Element;
 
 class Document implements Buildable
 {
+    /**
+     * @var Item[]
+     */
     private array $items = [];
 
     private string $xmlVersion = '1.0';
 
     private string $xmlEncoding = '';
 
-    private string $xmlStandalone = '';
+    private string|bool $xmlStandalone = '';
 
     public static function rss(
         string $title,
@@ -76,7 +79,7 @@ class Document implements Buildable
 
         }
 
-        if (strlen($this->xmlStandalone) > 0) {
+        if (is_bool($this->xmlStandalone)) {
             $doc = $doc->setStandalone($this->xmlStandalone);
 
         } else {
