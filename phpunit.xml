@@ -20,8 +20,8 @@
     </exclude>
   </coverage>
   <testsuites>
-    <testsuite name="amos">
-      <directory suffix="Test.php"></directory>
+    <testsuite name="main">
+      <directory suffix="Test.php">./tests</directory>
     </testsuite>
   </testsuites>
   <php>
