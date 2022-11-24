@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Eightfold\Syndication\Atom;
+namespace Eightfold\Syndication\Json;
 
 use Traversable;
 use Iterator;
 use Countable;
 use JsonSerializable;
 
-use Eightfold\Syndication\JSON\Author;
+use Eightfold\Syndication\Json\Author;
 
 class Authors
 implements Traversable, Iterator, Countable, JsonSerializable

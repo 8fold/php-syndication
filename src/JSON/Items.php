@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Eightfold\Syndication\JSON;
+namespace Eightfold\Syndication\Json;
 
 use Traversable;
 use Iterator;
 use Countable;
 use JsonSerializable;
 
-use Eightfold\Syndication\JSON\Item;
+use Eightfold\Syndication\Json\Item;
 
 class Items
 implements Traversable, Iterator, Countable, JsonSerializable

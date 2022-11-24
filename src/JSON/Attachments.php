@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Eightfold\Syndication\Atom;
+namespace Eightfold\Syndication\Json;
 
 use Traversable;
 use Iterator;
 use Countable;
 use JsonSerializable;
 
-use Eightfold\Syndication\JSON\Attachment;
+use Eightfold\Syndication\Json\Attachment;
 
 class Attachments
 implements Traversable, Iterator, Countable, JsonSerializable

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Eightfold\Syndication\JSON;
+namespace Eightfold\Syndication\Json;
 
 use StdClass;
 use JsonSerializable;
@@ -12,7 +12,7 @@ class Attachment implements JsonSerializable
         string $url,
         string $mimeType,
         string $title = '',
-        int $size = 0.
+        int $size = 0,
         int $duration = 0
     ): self {
         return new self($url, $mimeType, $title, $size, $duration);
@@ -21,7 +21,7 @@ class Attachment implements JsonSerializable
     final private function __construct(
         readonly private string $url,
         readonly private string $mimeType,
-        readonly private string $title = ''
+        readonly private string $title = '',
         readonly private int $size = 0,
         readonly private int $duration = 0
     ) {

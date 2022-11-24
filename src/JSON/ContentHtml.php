@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Eightfold\Syndication\JSON;
+namespace Eightfold\Syndication\Json;
 
 use Eightfold\XMLBuilder\Contracts\Buildable;
 

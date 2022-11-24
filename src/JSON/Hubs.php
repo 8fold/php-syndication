@@ -8,7 +8,7 @@ use Iterator;
 use Countable;
 use JsonSerializable;
 
-use Eightfold\Syndication\JSON\Hub;
+use Eightfold\Syndication\Json\Hub;
 
 class Hubs
 implements Traversable, Iterator, Countable, JsonSerializable

@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace Eightfold\Syndication\JSON;
+namespace Eightfold\Syndication\Json;
 
 use DateTime;
 use StdClass;
 use JsonSerializable;
 
-use Eightfold\Syndication\JSON\ContentHtml;
-use Eightfold\Syndication\JSON\Authors;
-use Eightfold\Syndication\JSON\Attachments;
+use Eightfold\Syndication\Json\ContentHtml;
+use Eightfold\Syndication\Json\Authors;
+use Eightfold\Syndication\Json\Attachments;
 
 /**
  * @todo: Test the content_html content_text rules - MUST have one, the other, or both.
@@ -142,7 +142,7 @@ class Item implements JsonSerializable
         }
 
         if (is_a($this->content, ContentHtml::class)) {
-            $obj->content_html = $this->content;
+            $obj->content_html = (string) $this->content;
 
         } else {
             $obj->content_text = $this->content;
@@ -151,7 +151,7 @@ class Item implements JsonSerializable
 
         if ($this->extraContent !== null) {
             if (is_a($this->extraContent, ContentHtml::class)) {
-                $obj->content_html = $this->extraContent;
+                $obj->content_html = (string) $this->extraContent;
 
             } else {
                 $obj->content_text = $this->extraContent;
