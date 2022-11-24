@@ -11,16 +11,16 @@ use DateTime;
 // use Eightfold\XMLBuilder\Document as XMLDocument;
 // use Eightfold\XMLBuilder\Element;
 
-use Eightfold\Syndication\RSS\Document as RSSDocument;
+use Eightfold\Syndication\DocumentRss;
+use Eightfold\Syndication\DocumentAtom;
+use Eightfold\Syndication\DocumentJson;
 
-use Eightfold\Syndication\Atom\Document as AtomDocument;
 use Eightfold\Syndication\Atom\Title as AtomTitle;
 use Eightfold\Syndication\Atom\Authors as AtomAuthors;
 use Eightfold\Syndication\Atom\Links as AtomLinks;
 use Eightfold\Syndication\Atom\TextElement as AtomTextElement;
 
-use Eightfold\Syndication\JSON\Document as JSONDocument;
-use Eightfold\Syndication\JSON\Items as JSONItems;
+use Eightfold\Syndication\Json\Items as JSONItems;
 
 class Document
 {
@@ -39,8 +39,8 @@ class Document
         string $title,
         string $link,
         string $description
-    ): RSSDocument {
-        return RSSDocument::create(
+    ): DocumentRss {
+        return DocumentRss::create(
             title: $title,
             link: $link,
             description: $description
@@ -53,8 +53,8 @@ class Document
         string $id,
         ?AtomAuthors $authors = null,
         ?AtomLinks $links = null
-    ): AtomDocument {
-        return AtomDocument::create(
+    ): DocumentAtom {
+        return DocumentAtom::create(
             title: $title,
             updated: $updated,
             id: $id,
@@ -68,8 +68,8 @@ class Document
         JSONItems $items,
         string $homePageUrl = '',
         string $feedUrl = ''
-    ): JSONDocument {
-        return JSONDocument::create($title, $items, $homePageUrl, $feedUrl);
+    ): DocumentJson {
+        return DocumentJson::create($title, $items, $homePageUrl, $feedUrl);
     }
 
     // final private function __construct(
