@@ -1,8 +1,6 @@
-> Note: Delete the labels in the new repo and use https://github.com/jvandemo/copy-github-labels-cli to copy the ones found here to the new repo
+# 8fold Syndication for PHP
 
-# 8fold {Name of product or project} for {language or framework}
-
-{brief description}
+A library for generating standards-compliant [web feeds](https://en.wikipedia.org/wiki/Web_feed) using both [Atom](https://validator.w3.org/feed/docs/atom.html) (recommended) and [RSS](https://cyber.harvard.edu/rss/) specifications.
 
 ## Installation
 
@@ -11,6 +9,39 @@
 ## Usage
 
 {brief example of how to use the product}
+
+### JSON
+
+JSON Feed reference used: https://www.jsonfeed.org
+
+### Atom
+
+Atom specification reference used: https://validator.w3.org/feed/docs/atom.html#content
+
+#### Authors
+
+Recommended
+
+- Feed MUST contain at least one author element, unless all entries have an author element.
+- Feed and Entries MAY have multiple authors.
+
+#### Link
+
+Recommended
+
+- Must use `rel` attribute.
+    - `rel` MAY be: alternate, enclosure, related, self, or via.
+    - Default is alternate.
+    - Feed MUST NOT have more than one alternate link.
+
+### RSS
+
+RSS specification reference used: https://cyber.harvard.edu/rss/
+
+
+
+
+
 
 ## Details
 
