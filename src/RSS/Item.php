@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Eightfold\Syndication;
+namespace Eightfold\Syndication\RSS;
 
 use Stringable;
 use DateTime;
@@ -10,9 +10,10 @@ use Eightfold\XMLBuilder\Contracts\Buildable;
 
 use Eightfold\XMLBuilder\Element;
 
-use Eightfold\Syndication\Guid;
-use Eightfold\Syndication\Enclosure;
-use Eightfold\Syndication\Source;
+use Eightfold\Syndication\RSS\Enclosure;
+
+use Eightfold\Syndication\RSS\Guid;
+use Eightfold\Syndication\RSS\Source;
 
 class Item implements Buildable
 {

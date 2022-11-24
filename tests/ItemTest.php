@@ -5,13 +5,15 @@ namespace Eightfold\Syndication\Tests;
 
 use PHPUnit\Framework\TestCase;
 
+use Eightfold\Syndication\RSS\Item;
+
 use DateTime;
 
-use Eightfold\Syndication\Item;
-use Eightfold\Syndication\Category;
-use Eightfold\Syndication\Guid;
-use Eightfold\Syndication\Enclosure;
-use Eightfold\Syndication\Source;
+use Eightfold\Syndication\RSS\Category;
+use Eightfold\Syndication\RSS\Enclosure;
+
+use Eightfold\Syndication\RSS\Guid;
+use Eightfold\Syndication\RSS\Source;
 
 class ItemTest extends TestCase
 {

@@ -8,8 +8,9 @@ use DateTime;
 use PHPUnit\Framework\TestCase;
 
 use Eightfold\Syndication\Document;
-use Eightfold\Syndication\Item;
-use Eightfold\Syndication\Guid;
+
+use Eightfold\Syndication\Rss\Item;
+use Eightfold\Syndication\RSS\Guid;
 
 class SampleRss2OriginalTest extends TestCase
 {

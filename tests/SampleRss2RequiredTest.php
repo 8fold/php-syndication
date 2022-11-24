@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 use Eightfold\Syndication\Document;
 
-use Eightfold\Syndication\Item;
+use Eightfold\Syndication\RSS\Item;
 
 use DateTime;
 
