@@ -15,8 +15,7 @@ use Eightfold\Syndication\RSS\Document as RSSDocument;
 
 use Eightfold\Syndication\Implementations\DocumentImp;
 
-use Eightfold\Syndication\RSS\Item;
-use Eightfold\Syndication\RSS\Category;
+use Eightfold\Syndication\RSS\Items;
 
 class DocumentRss implements Buildable
 {
@@ -24,28 +23,81 @@ class DocumentRss implements Buildable
 
     const VERSION = '2.0';
 
+    private string $language = '';
+
+    private ?DateTime $pubDate = null;
+
+    private ?DateTime $lastBuildDate = null;
+
+    private string $docs = '';
+
+    private string $generator = '';
+
+    private string $managingEditor = '';
+
+    private string $webMaster = '';
+
     public static function create(
         string $title,
         string $link,
-        string $description
+        string $description,
+        Items $items
     ): self {
         return new self(
             title: $title,
             link: $link,
-            description: $description
+            description: $description,
+            items: $items
         );
     }
 
     final private function __construct(
         readonly private string $title,
         readonly private string $link,
-        readonly private string $description
+        readonly private string $description,
+        readonly private Items $items
     ) {
     }
 
-    public function items(Item ...$items): self
+    public function withLanguage(string $language): self
     {
-        $this->items = $items;
+        $this->language = $language;
+        return $this;
+    }
+
+    public function withPubDate(DateTime $pubDate): self
+    {
+        $this->pubDate = $pubDate;
+        return $this;
+    }
+
+    public function withLastBuildDate(DateTime $lastBuildDate): self
+    {
+        $this->lastBuildDate = $lastBuildDate;
+        return $this;
+    }
+
+    public function withDocs(string $url): self
+    {
+        $this->docs = $url;
+        return $this;
+    }
+
+    public function withGenerator(string $name): self
+    {
+        $this->generator = $name;
+        return $this;
+    }
+
+    public function withManagingEditor(string $email): self
+    {
+        $this->managingEditor = $email;
+        return $this;
+    }
+
+    public function withWebMaster(string $email): self
+    {
+        $this->webMaster = $email;
         return $this;
     }
 
@@ -56,13 +108,59 @@ class DocumentRss implements Buildable
 
     public function __toString(): string
     {
+        $language = '';
+        if (strlen($this->language) > 0) {
+            $language = Element::language($this->language);
+        }
+
+        $pubDate = '';
+        if ($this->pubDate !== null) {
+            $pubDate = Element::pubDate(
+                $this->pubDate->format(DateTime::RSS)
+            );
+        }
+
+        $lastBuildDate = '';
+        if ($this->lastBuildDate !== null) {
+            $lastBuildDate = Element::lastBuildDate(
+                $this->lastBuildDate->format(DateTime::RSS)
+            );
+        }
+
+        $docs = '';
+        if (strlen($this->docs) > 0) {
+            $docs = Element::docs($this->docs);
+        }
+
+        $generator = '';
+        if (strlen($this->generator) > 0) {
+            $generator = Element::generator($this->generator);
+        }
+
+        $managingEditor = '';
+        if (strlen($this->managingEditor) > 0) {
+            $managingEditor = Element::managingEditor($this->managingEditor);
+        }
+
+        $webMaster = '';
+        if (strlen($this->webMaster) > 0) {
+            $webMaster = Element::webMaster($this->webMaster);
+        }
+
         $doc = XMLDocument::create(
             'rss',
             Element::channel(
                 Element::title($this->title),
                 Element::link($this->link),
                 Element::description($this->description),
-                ...$this->items
+                $language,
+                $pubDate,
+                $lastBuildDate,
+                $docs,
+                $generator,
+                $managingEditor,
+                $webMaster,
+                $this->items
             )
         )->props('version ' . self::VERSION);
 
