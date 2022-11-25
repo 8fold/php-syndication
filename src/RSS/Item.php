@@ -87,12 +87,11 @@ class Item implements Buildable
             ? Element::description($this->description)
             : '';
 
-        $pubDate = ($this->pubDate === null)
-            ? ''
-            : $this->pubDate->format(DateTime::RSS);
-        $pubDate = str_replace('+0000', 'GMT', $pubDate);
-        if (strlen($pubDate) > 0) {
-            $pubDate = Element::pubDate($pubDate);
+        $pubDate = '';
+        if ($this->pubDate !== null) {
+            $pubDate = Element::pubDate(
+                $this->pubDate->format(DateTime::RSS)
+            );
         }
 
         $author = (strlen($this->author) === 0)
