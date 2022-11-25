@@ -5,11 +5,6 @@ namespace Eightfold\Syndication\Implementations;
 
 trait DocumentImp
 {
-    /**
-     * @var Item[]
-     */
-    private array $items = [];
-
     private string $xmlVersion = '1.0';
 
     private string $xmlEncoding = '';
