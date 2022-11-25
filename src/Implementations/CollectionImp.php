@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Eightfold\Syndication\Atom\Implementations;
+namespace Eightfold\Syndication\Implementations;
 
 trait CollectionImp
 {

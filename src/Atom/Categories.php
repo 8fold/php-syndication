@@ -11,11 +11,11 @@ use Eightfold\XMLBuilder\Contracts\Buildable;
 
 use Eightfold\Syndication\Atom\Category;
 
-use Eightfold\Syndication\Atom\Implementations\CollectionImp;
+use Eightfold\Syndication\Implementations\CollectionStringableImp;
 
 class Categories implements Traversable, Iterator, Countable, Buildable
 {
-    use CollectionImp;
+    use CollectionStringableImp;
 
     public static function create(Category ...$categories): self
     {
