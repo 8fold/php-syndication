@@ -40,6 +40,11 @@ class Link implements Buildable
 
     public function __toString(): string
     {
+        if ($this->rel === self::ALTERNATE) {
+            return (string) Element::link()->omitEndTag()->props(
+                'href ' . $this->href,
+            );
+        }
         return (string) Element::link()->omitEndTag()->props(
             'href ' . $this->href,
             'rel ' . $this->rel
