@@ -229,7 +229,7 @@ class DocumentAtom implements Buildable
         $doc = XMLDocument::create(
             'feed',
             $this->title,
-            Element::id()->omitEndTag()->props('href ' . $this->id),
+            Element::id($this->id),
             Element::updated(
                 $this->updated->format(DateTime::ATOM)
             ),
@@ -242,7 +242,7 @@ class DocumentAtom implements Buildable
             $logo,
             $rights,
             $subtitle,
-            ...$this->entries
+            $this->entries
         )->props('xmlns ' . self::VERSION);
 
         $doc = $doc->setVersion($this->xmlVersion);
