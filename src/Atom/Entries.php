@@ -30,7 +30,11 @@ class Entries implements Traversable, Iterator, Countable, Buildable
     public function isValid(): bool
     {
         foreach ($this as $entry) {
-            if ($entry->isInvalid()) {
+            if (
+                is_object($entry) and
+                is_a($entry, Entry::class) and
+                $entry->isInvalid()
+            ) {
                 return false;
             }
         }

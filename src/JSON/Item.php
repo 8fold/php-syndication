@@ -11,6 +11,7 @@ use Eightfold\Syndication\Json\ContentHtml;
 use Eightfold\Syndication\Json\Authors;
 use Eightfold\Syndication\Json\Attachments;
 use Eightfold\Syndication\Json\CustomObjects;
+use Eightfold\Syndication\Json\CustomObject;
 
 /**
  * @todo: Test the content_html content_text rules - MUST have one, the other, or both.
@@ -115,7 +116,7 @@ class Item implements JsonSerializable
         return $this;
     }
 
-    public function withAuthors(Authros $authors): self
+    public function withAuthors(Authors $authors): self
     {
         $this->authors = $authors;
         return $this;
@@ -162,7 +163,10 @@ class Item implements JsonSerializable
             $obj->title = $this->title;
         }
 
-        if (is_a($this->content, ContentHtml::class)) {
+        if (
+            is_object($this->content) and
+            is_a($this->content, ContentHtml::class)
+        ) {
             $obj->content_html = (string) $this->content;
 
         } else {
@@ -171,7 +175,10 @@ class Item implements JsonSerializable
         }
 
         if ($this->extraContent !== null) {
-            if (is_a($this->extraContent, ContentHtml::class)) {
+            if (
+                is_object($this->extraContent) and
+                is_a($this->extraContent, ContentHtml::class)
+            ) {
                 $obj->content_html = (string) $this->extraContent;
 
             } else {
@@ -218,8 +225,10 @@ class Item implements JsonSerializable
 
         if ($this->customObjects !== null) {
             foreach ($this->customObjects as $customObject) {
-                $name = $customObject->name();
-                $obj->{$name} = $customObject->object();
+                if (is_a($customObject, CustomObject::class)) {
+                    $name = $customObject->name();
+                    $obj->{$name} = $customObject->object();
+                }
             }
         }
 

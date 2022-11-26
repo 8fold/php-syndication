@@ -9,7 +9,7 @@
  */
 declare(strict_types=1);
 
-namespace Eightfold\Syndication\RSS;
+namespace Eightfold\Syndication\Rss;
 
 use Stringable;
 use DateTime;
@@ -18,11 +18,11 @@ use Eightfold\XMLBuilder\Contracts\Buildable;
 
 use Eightfold\XMLBuilder\Element;
 
-use Eightfold\Syndication\RSS\Enclosure;
+use Eightfold\Syndication\Rss\Enclosure;
 
-use Eightfold\Syndication\RSS\Guid;
-use Eightfold\Syndication\RSS\Source;
-use Eightfold\Syndication\RSS\Categories;
+use Eightfold\Syndication\Rss\Guid;
+use Eightfold\Syndication\Rss\Source;
+use Eightfold\Syndication\Rss\Categories;
 
 class Item implements Buildable
 {

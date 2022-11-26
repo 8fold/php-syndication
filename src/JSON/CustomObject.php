@@ -19,7 +19,7 @@ class CustomObject
     ) {
     }
 
-    private function name(): string
+    public function name(): string
     {
         if (str_contains($this->name, '.')) {
             return '';
@@ -31,7 +31,7 @@ class CustomObject
         return '_' . $this->name;
     }
 
-    private function object(): StdClass
+    public function object(): StdClass
     {
         return $this->object;
     }

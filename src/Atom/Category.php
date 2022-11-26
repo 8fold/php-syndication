@@ -10,13 +10,8 @@ use Eightfold\XMLBuilder\Contracts\Buildable;
 
 use Eightfold\XMLBuilder\Element;
 
-class Author implements Buildable
+class Category implements Buildable
 {
-    /**
-     * @var Category[]
-     */
-    private array $categories = [];
-
     public static function create(
         string $term,
         string $scheme = '',

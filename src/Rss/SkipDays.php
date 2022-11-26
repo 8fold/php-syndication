@@ -13,6 +13,9 @@ use Eightfold\Syndication\Rss\Enums\SkipDaysDay;
 
 class SkipDays implements Buildable
 {
+    /**
+     * @var string[]
+     */
     private array $days = [];
 
     public static function create(SkipDaysDay ...$days): self

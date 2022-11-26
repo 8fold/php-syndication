@@ -6,19 +6,20 @@ namespace Eightfold\Syndication\Atom;
 use Eightfold\XMLBuilder\Contracts\Buildable;
 
 use Eightfold\Syndication\Atom\Abstracts\TextElement;
+use Eightfold\Syndication\Atom\Enums\TextTypes;
 
 class Subtitle implements Buildable
 {
     public static function create(
         string $content,
-        string $type = TextElement::TEXT
+        TextTypes $type = TextTypes::TEXT
     ): self {
         return new self($content, $type);
     }
 
     final private function __construct(
         readonly private string $content,
-        readonly private string $type = TextElement::TEXT
+        readonly private TextTypes $type
     ) {
     }
 

@@ -16,7 +16,7 @@ trait DocumentImp
         string $encoding = 'UTF-8',
         bool $standalone = true
     ): self {
-        $this->xmlVersion = $version;
+        $this->xmlVersion = strval($version);
         $this->xmlEncoding = $encoding;
         $this->xmlStandalone = $standalone;
         return $this;

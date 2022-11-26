@@ -12,8 +12,7 @@ use Eightfold\Syndication\Implementations\CollectionJsonSerializableImp;
 
 use Eightfold\Syndication\Json\Item;
 
-class Items
-implements Traversable, Iterator, Countable, JsonSerializable
+class Items implements Traversable, Iterator, Countable, JsonSerializable
 {
     use CollectionJsonSerializableImp;
 

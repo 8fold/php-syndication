@@ -17,24 +17,28 @@ use Eightfold\Syndication\Atom\Title;
 use Eightfold\Syndication\Atom\Generator;
 use Eightfold\Syndication\Atom\Subtitle;
 
-use Eightfold\Syndication\Atom\Entries;
 use Eightfold\Syndication\Atom\Rights;
 use Eightfold\Syndication\Atom\Authors;
-use Eightfold\Syndication\Atom\Links;
 use Eightfold\Syndication\Atom\Contributors;
 use Eightfold\Syndication\Atom\Categories;
+
+use Eightfold\Syndication\Atom\Links;
+use Eightfold\Syndication\Atom\Link;
+
+use Eightfold\Syndication\Atom\Entries;
+use Eightfold\Syndication\Atom\Entry;
 
 class DocumentAtom implements Buildable
 {
     use DocumentImp;
 
-    const VERSION = 'http://www.w3.org/2005/Atom';
+    private const VERSION = 'http://www.w3.org/2005/Atom';
 
     private ?Contributors $contributors = null;
 
     private ?Categories $categories = null;
 
-    private ?Generatoe $generator = null;
+    private ?Generator $generator = null;
 
     private string $icon = '';
 
@@ -122,7 +126,11 @@ class DocumentAtom implements Buildable
 
         $totalAuthors = 0;
         foreach ($this->entries as $entry) {
-            if ($entry->hasAuthors()) {
+            if (
+                is_object($entry) and
+                is_a($entry, Entry::class) and
+                $entry->hasAuthors()
+            ) {
                 $totalAuthors++;
             }
         }
@@ -137,7 +145,11 @@ class DocumentAtom implements Buildable
 
         $alternatesFound = 0;
         foreach ($this->links as $link) {
-            if ($link->isAlternate()) {
+            if (
+                is_object($link) and
+                is_a($link, Link::class) and
+                $link->isAlternate()
+            ) {
                 $alternatesFound++;
             }
 

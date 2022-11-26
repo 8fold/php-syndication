@@ -19,11 +19,11 @@ class Categories implements Traversable, Iterator, Countable, Buildable
 
     public static function create(Category ...$categories): self
     {
-        return new self(...$contributors);
+        return new self(...$categories);
     }
 
     final private function __construct(Category ...$categories)
     {
-        $this->collection = $contributors;
+        $this->collection = $categories;
     }
 }

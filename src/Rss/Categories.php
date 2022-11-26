@@ -13,7 +13,7 @@ use Eightfold\Syndication\Rss\Category;
 
 use Eightfold\Syndication\Implementations\CollectionStringableImp;
 
-class Items implements Traversable, Iterator, Countable, Buildable
+class Categories implements Traversable, Iterator, Countable, Buildable
 {
     use CollectionStringableImp;
 

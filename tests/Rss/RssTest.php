@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Eightfold\Syndication\Tests;
+namespace Eightfold\Syndication\Tests\Rss;
 
 use DateTime;
 
@@ -12,7 +12,7 @@ use Eightfold\Syndication\DocumentRss;
 use Eightfold\Syndication\Rss\Items;
 use Eightfold\Syndication\Rss\Item;
 
-use Eightfold\Syndication\RSS\Guid;
+use Eightfold\Syndication\Rss\Guid;
 
 class RssTest extends TestCase
 {

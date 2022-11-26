@@ -7,7 +7,7 @@ use Eightfold\XMLBuilder\Contracts\Buildable;
 
 use Eightfold\XMLBuilder\Element;
 
-class Geneator implements Buildable
+class Generator implements Buildable
 {
     public static function create(
         string $content,
@@ -32,7 +32,7 @@ class Geneator implements Buildable
     public function __toString(): string
     {
         $e = Element::generator($this->content);
-        if (strlen($this->uri) === 0 and strlen($this->versions) === 0) {
+        if (strlen($this->uri) === 0 and strlen($this->version) === 0) {
             return (string) $e;
         }
 

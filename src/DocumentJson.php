@@ -10,10 +10,11 @@ use Eightfold\Syndication\Json\Items;
 use Eightfold\Syndication\Json\Authors;
 use Eightfold\Syndication\Json\Hubs;
 use Eightfold\Syndication\Json\CustomObjects;
+use Eightfold\Syndication\Json\CustomObject;
 
 class DocumentJson implements JsonSerializable
 {
-    const VERSION = 'https://jsonfeed.org/version/1.1';
+    private const VERSION = 'https://jsonfeed.org/version/1.1';
 
     private string $description = '';
 
@@ -171,8 +172,10 @@ class DocumentJson implements JsonSerializable
 
         if ($this->customObjects !== null) {
             foreach ($this->customObjects as $customObject) {
-                $name = $customObject->name();
-                $obj->{$name} = $customObject->object();
+                if (is_a($customObject, CustomObject::class)) {
+                    $name = $customObject->name();
+                    $obj->{$name} = $customObject->object();
+                }
             }
         }
 

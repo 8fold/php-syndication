@@ -2,5 +2,7 @@ parameters:
 	level: 9
 	paths:
 		- src
+	checkGenericClassInNonGenericObjectType: false
 	ignoreErrors:
 		- '#Call to an undefined static method Eightfold\\XMLBuilder\\Element::(.*)#'
+		- '#(.*)::\$collection type has no value type specified in iterable type array.#'

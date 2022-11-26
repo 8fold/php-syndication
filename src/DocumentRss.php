@@ -11,7 +11,7 @@ use Eightfold\XMLBuilder\Contracts\Buildable;
 use Eightfold\XMLBuilder\Document as XMLDocument;
 use Eightfold\XMLBuilder\Element;
 
-use Eightfold\Syndication\RSS\Document as RSSDocument;
+use Eightfold\Syndication\Rss\Document as RSSDocument;
 
 use Eightfold\Syndication\Implementations\DocumentImp;
 
@@ -27,7 +27,7 @@ class DocumentRss implements Buildable
 {
     use DocumentImp;
 
-    const VERSION = '2.0';
+    private const VERSION = '2.0';
 
     private string $language = '';
 
@@ -147,7 +147,7 @@ class DocumentRss implements Buildable
 
     public function withTtl(int $ttl): self
     {
-        $this->ttl = strval($ttle);
+        $this->ttl = strval($ttl);
         return $this;
     }
 

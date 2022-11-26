@@ -11,6 +11,9 @@ use Eightfold\XMLBuilder\Element;
 
 class SkipHours implements Buildable
 {
+    /**
+     * @var int[]
+     */
     private array $hours = [];
 
     public static function create(int ...$hours): self

@@ -16,6 +16,9 @@ use Eightfold\Syndication\Atom\Summary;
 use Eightfold\Syndication\Atom\Rights;
 use Eightfold\Syndication\Atom\Subtitle;
 
+use Eightfold\Syndication\Atom\Links;
+use Eightfold\Syndication\Atom\Link;
+
 use Eightfold\Syndication\Atom\Categories;
 
 class Entry implements Buildable
@@ -106,11 +109,18 @@ class Entry implements Buildable
             return false;
         }
 
-        foreach ($this->links as $link) {
-            if ($link->isAlternate()) {
-                return true;
+        if ($this->links !== null) {
+            foreach ($this->links as $link) {
+                if (
+                    is_object($link) and
+                    is_a($link, Link::class) and
+                    $link->isAlternate()
+                ) {
+                    return true;
+                }
             }
         }
+
         return false;
     }
 

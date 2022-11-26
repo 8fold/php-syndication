@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Eightfold\Syndication\Atom;
+namespace Eightfold\Syndication\Json;
 
 use Traversable;
 use Iterator;
@@ -12,8 +12,7 @@ use Eightfold\Syndication\Implementations\CollectionJsonSerializableImp;
 
 use Eightfold\Syndication\Json\Hub;
 
-class Hubs
-implements Traversable, Iterator, Countable, JsonSerializable
+class Hubs implements Traversable, Iterator, Countable, JsonSerializable
 {
     use CollectionJsonSerializableImp;
 
