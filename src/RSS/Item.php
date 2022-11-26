@@ -1,4 +1,12 @@
 <?php
+/**
+ * php-syndication - Item.php
+ *
+ * @author Josh Bruce
+ *
+ * All elements of an item are optional, however at least one of title or
+ * description must be present.
+ */
 declare(strict_types=1);
 
 namespace Eightfold\Syndication\RSS;
@@ -14,58 +22,102 @@ use Eightfold\Syndication\RSS\Enclosure;
 
 use Eightfold\Syndication\RSS\Guid;
 use Eightfold\Syndication\RSS\Source;
+use Eightfold\Syndication\RSS\Categories;
 
 class Item implements Buildable
 {
-    /**
-     * @var Category[]
-     */
-    private array $categories = [];
+    private string $link = '';
+
+    private ?Guid $guid = null;
+
+    private ?DateTime $pubDate = null;
+
+    private string $author = '';
+
+    private string $comments = '';
+
+    private ?Enclosure $enclosure = null;
+
+    private ?Source $source = null;
+
+    private ?Categories $categories = null;
 
     public static function create(
         string $title = '',
-        string $description = '',
-        ?DateTime $pubDate = null,
-        string $author = '',
-        string $link = '',
-        ?Guid $guid = null,
-        string $comments = '',
-        ?Enclosure $enclosure = null,
-        ?Source $source = null
+        string $description = ''
     ): self {
-        return new self(
-            $title,
-            $description,
-            $pubDate,
-            $author,
-            $link,
-            $guid,
-            $comments,
-            $enclosure,
-            $source
-        );
+        return new self($title, $description);
     }
 
     final private function __construct(
         readonly private string $title = '',
-        readonly private string $description = '',
-        readonly private ?DateTime $pubDate = null,
-        readonly private string $author = '',
-        readonly private string $link = '',
-        readonly private ?Guid $guid = null,
-        readonly private string $comments = '',
-        readonly private ?Enclosure $enclosure = null,
-        readonly private ?Source $source = null
+        readonly private string $description = ''
     ) {
     }
 
-    /**
-     * @param Category $categories
-     */
-    public function categories(Category ...$categories): self
+    public function withLink(string $link): self
+    {
+        $this->link = $link;
+        return $this;
+    }
+
+    public function withGuid(Guid $guid): self
+    {
+        $this->guid = $guid;
+        return $this;
+    }
+
+    public function withPubDate(DateTime $date): self
+    {
+        $this->pubDate = $date;
+        return $this;
+    }
+
+    public function withAuthor(string $author): self
+    {
+        $this->author = $author;
+        return $this;
+    }
+
+    public function withComments(string $comments): self
+    {
+        $this->comments = $comments;
+        return $this;
+    }
+
+    public function withEclosure(Enclosure $enclosure): self
+    {
+        $this->enclosure = $enclosure;
+        return $this;
+    }
+
+    public function withSource(Source $source): self
+    {
+        $this->source = $source;
+        return $this;
+    }
+
+    public function withCategories(Categories $categories): sefl
     {
         $this->categories = $categories;
         return $this;
+    }
+
+    public function isValid(): bool
+    {
+        if (strlen($this->title) > 0) {
+            return true;
+        }
+
+        if (strlen($this->description) > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public function isInvalid(): bool
+    {
+        return ! $this->isValid();
     }
 
     public function build(): string
@@ -75,17 +127,15 @@ class Item implements Buildable
 
     public function __toString(): string
     {
-        $hasTitle = strlen($this->title) > 0;
-        $hasDescription = strlen($this->description) > 0;
-        if ($hasTitle === false and $hasDescription === false) {
+        if ($this->isInvalid()) {
             return '';
         }
 
-        $title = ($hasTitle) ? Element::title($this->title) : '';
+        $title = (strlen($this->title) === 0) ? '' : Element::title($this->title);
 
-        $description = ($hasDescription)
-            ? Element::description($this->description)
-            : '';
+        $description = (strlen($this->description) === 0)
+            ? ''
+            : Element::description($this->description);
 
         $pubDate = '';
         if ($this->pubDate !== null) {
@@ -112,6 +162,8 @@ class Item implements Buildable
 
         $source = ($this->source === null) ? '' : $this->source;
 
+        $categories = ($this->categories === null) ? '' : $this->categories;
+
         return (string) Element::item(
             $title,
             $description,
@@ -122,7 +174,7 @@ class Item implements Buildable
             $comments,
             $enclosure,
             $source,
-            ...$this->categories
+            $categories
         );
     }
 }
