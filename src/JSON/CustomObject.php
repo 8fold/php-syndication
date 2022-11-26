@@ -31,6 +31,11 @@ class CustomObject
         return '_' . $this->name;
     }
 
+    private function object(): StdClass
+    {
+        return $this->object;
+    }
+
     public function jsonSerialize(): mixed
     {
         $obj = new StdClass();

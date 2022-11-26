@@ -10,15 +10,20 @@ use JsonSerializable;
 use Eightfold\Syndication\Json\ContentHtml;
 use Eightfold\Syndication\Json\Authors;
 use Eightfold\Syndication\Json\Attachments;
+use Eightfold\Syndication\Json\CustomObjects;
 
 /**
  * @todo: Test the content_html content_text rules - MUST have one, the other, or both.
  */
 class Item implements JsonSerializable
 {
+    private string|ContentHtml|null $extraContent = null;
+
+    private string $url = '';
+
     private string $externalUrl = '';
 
-    private string|ContentHtml|null $extraContent = null;
+    private string $title = '';
 
     private string $summary = '';
 
@@ -41,21 +46,31 @@ class Item implements JsonSerializable
 
     private ?Attachments $attachments = null;
 
+    private ?CustomObjects $customObjects = null;
+
     public static function create(
         string $id,
-        string|ContentHtml $content,
-        string $url = '',
-        string $title = ''
+        string|ContentHtml $content
     ): self {
-        return new self($id, $content, $url, $title);
+        return new self($id, $content);
     }
 
     final private function __construct(
         readonly private string $id,
-        readonly private string|ContentHtml $content,
-        readonly private string $url = '',
-        readonly private string $title = ''
+        readonly private string|ContentHtml $content
     ) {
+    }
+
+    public function withExtraContent(string|ContentHtml $extraContent): self
+    {
+        $this->extraContent = $extraContent;
+        return $this;
+    }
+
+    public function withUrl(string $url): self
+    {
+        $this->url = $url;
+        return $this;
     }
 
     public function withExternalUrl(string $externalUrl): self
@@ -64,9 +79,9 @@ class Item implements JsonSerializable
         return $this;
     }
 
-    public function withExtraContent(string|ContentHtml $extraContent): self
+    public function withTitle(string $title): self
     {
-        $this->extraContent = $extraContent;
+        $this->title = $title;
         return $this;
     }
 
@@ -124,6 +139,12 @@ class Item implements JsonSerializable
         return $this;
     }
 
+    public function withCustomObjects(CustomObjects $customObjects): self
+    {
+        $this->customObjects = $customObjects;
+        return $this;
+    }
+
     public function jsonSerialize(): mixed
     {
         $obj = new StdClass();
@@ -133,12 +154,12 @@ class Item implements JsonSerializable
             $obj->url = $this->url;
         }
 
-        if (strlen($this->title) > 0) {
-            $obj->title = $this->title;
-        }
-
         if (strlen($this->externalUrl) > 0) {
             $obj->external_url = $this->externalUrl;
+        }
+
+        if (strlen($this->title) > 0) {
+            $obj->title = $this->title;
         }
 
         if (is_a($this->content, ContentHtml::class)) {
@@ -193,6 +214,13 @@ class Item implements JsonSerializable
 
         if ($this->attachments !== null) {
             $obj->attachments = $this->attachments;
+        }
+
+        if ($this->customObjects !== null) {
+            foreach ($this->customObjects as $customObject) {
+                $name = $customObject->name();
+                $obj->{$name} = $customObject->object();
+            }
         }
 
         return $obj;

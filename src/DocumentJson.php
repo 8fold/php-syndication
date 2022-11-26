@@ -9,6 +9,7 @@ use JsonSerializable;
 use Eightfold\Syndication\Json\Items;
 use Eightfold\Syndication\Json\Authors;
 use Eightfold\Syndication\Json\Hubs;
+use Eightfold\Syndication\Json\CustomObjects;
 
 class DocumentJson implements JsonSerializable
 {
@@ -31,6 +32,8 @@ class DocumentJson implements JsonSerializable
     private bool $isExpired = false;
 
     private ?Hubs $hubs = null;
+
+    private ?CustomObjects $customObjects = null;
 
     public static function create(
         string $title,
@@ -108,6 +111,12 @@ class DocumentJson implements JsonSerializable
         return $this;
     }
 
+    public function withCustomObjects(CustomObjects $customObjects): self
+    {
+        $this->customObjects = $customObjects;
+        return $this;
+    }
+
     public function jsonSerialize(): mixed
     {
         $obj          = new StdClass();
@@ -159,6 +168,13 @@ class DocumentJson implements JsonSerializable
         }
 
         $obj->items = $this->items;
+
+        if ($this->customObjects !== null) {
+            foreach ($this->customObjects as $customObject) {
+                $name = $customObject->name();
+                $obj->{$name} = $customObject->object();
+            }
+        }
 
         return $obj;
     }

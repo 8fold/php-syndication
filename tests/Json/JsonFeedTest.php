@@ -38,13 +38,15 @@ class JsonFeedTest extends TestCase
             items: Items::create(
                 Item::create(
                     id: '2',
-                    content: 'This is a second item.',
-                    url: 'https://example.org/second-item'
+                    content: 'This is a second item.'
+                )->withUrl(
+                    'https://example.org/second-item'
                 ),
                 Item::create(
                     id: '1',
-                    content: ContentHtml::create('<p>Hello, world!</p>'),
-                    url: 'https://example.org/initial-post'
+                    content: ContentHtml::create('<p>Hello, world!</p>')
+                )->withUrl(
+                    'https://example.org/initial-post'
                 )
             )
         );
@@ -76,9 +78,10 @@ class JsonFeedTest extends TestCase
             items: Items::create(
                 Item::create(
                     id: '2347259',
-                    url: 'https://example.org/2347259',
                     // note: Using double prime because new line \n
                     content: "Cats are neat. \n\nhttps://example.org/cats"
+                )->withUrl(
+                    'https://example.org/2347259'
                 )->withDatePublished(
                     DateTime::createFromFormat(
                         DateTime::ATOM,
