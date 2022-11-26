@@ -10,6 +10,7 @@ use JsonSerializable;
 use Eightfold\Syndication\Json\ContentHtml;
 use Eightfold\Syndication\Json\Authors;
 use Eightfold\Syndication\Json\Attachments;
+
 use Eightfold\Syndication\Json\CustomObjects;
 use Eightfold\Syndication\Json\CustomObject;
 
