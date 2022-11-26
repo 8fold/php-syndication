@@ -152,7 +152,8 @@ class DocumentAtom implements Buildable
     {
         if (
             $this->passesAuthorCheck() and
-            $this->passesAlternateCheck()
+            $this->passesAlternateCheck() and
+            $this->entries->isValid()
         ) {
             return true;
         }
@@ -185,20 +186,20 @@ class DocumentAtom implements Buildable
             $links = $this->links;
         }
 
-        $contributors = '';
-        if (
-            $this->contributors !== null and
-            $this->contributors->count() > 0
-        ) {
-            $contributors = $this->contributors;
-        }
-
         $categories = '';
         if (
             $this->categories !== null and
             $this->categories->count() > 0
         ) {
             $categories = $this->categories;
+        }
+
+        $contributors = '';
+        if (
+            $this->contributors !== null and
+            $this->contributors->count() > 0
+        ) {
+            $contributors = $this->contributors;
         }
 
         $generator = '';
@@ -228,15 +229,15 @@ class DocumentAtom implements Buildable
 
         $doc = XMLDocument::create(
             'feed',
-            $this->title,
             Element::id($this->id),
+            $this->title,
             Element::updated(
                 $this->updated->format(DateTime::ATOM)
             ),
-            $links,
             $authors,
-            $contributors,
+            $links,
             $categories,
+            $contributors,
             $generator,
             $icon,
             $logo,

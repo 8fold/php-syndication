@@ -7,16 +7,14 @@ use Eightfold\XMLBuilder\Contracts\Buildable;
 
 use Eightfold\XMLBuilder\Element;
 
+use Eightfold\Syndication\Atom\Enums\TextTypes;
+
 class TextElement implements Buildable
 {
-    const TEXT = 'text';
-    const HTML = 'html';
-    const XHTML = 'xhtml';
-
     public static function create(
         string $element,
         string $content,
-        string $type = self::TEXT
+        TextTypes $type = TextTypes::TEXT
     ): self {
         return new self($element, $content, $type);
     }
@@ -24,7 +22,7 @@ class TextElement implements Buildable
     final private function __construct(
         readonly private string $element,
         readonly private string $content,
-        readonly private string $type = self::TEXT
+        readonly private TextTypes $type
     ) {
     }
 
@@ -36,9 +34,9 @@ class TextElement implements Buildable
     public function __toString(): string
     {
         $e = Element::{$this->element}($this->content);
-        if ($this->type === self::TEXT) {
+        if ($this->type === TextTypes::TEXT) {
             return (string) $e;
         }
-        return (string) $e->props('type ' . $this->type);
+        return (string) $e->props('type ' . $this->type->value);
     }
 }

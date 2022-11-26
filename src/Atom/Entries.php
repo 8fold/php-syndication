@@ -26,4 +26,14 @@ class Entries implements Traversable, Iterator, Countable, Buildable
     {
         $this->collection = $entries;
     }
+
+    public function isValid(): bool
+    {
+        foreach ($this as $entry) {
+            if ($entry->isInvalid()) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

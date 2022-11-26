@@ -18,11 +18,6 @@ use Eightfold\Syndication\Atom\Subtitle;
 
 use Eightfold\Syndication\Atom\Categories;
 
-//
-// use Eightfold\Syndication\Guid;
-// use Eightfold\Syndication\Enclosure;
-// use Eightfold\Syndication\Source;
-
 class Entry implements Buildable
 {
     private ?Categories $categories = null;
@@ -43,14 +38,6 @@ class Entry implements Buildable
         ?Content $content = null,
         ?Links $links = null,
         ?Summary $summary = null
-//         string $description = '',
-//
-//         string $author = '',
-//
-//         ?Guid $guid = null,
-//         string $comments = '',
-//         ?Enclosure $enclosure = null,
-//         ?Source $source = null
     ): self {
         return new self(
             title: $title,
@@ -60,12 +47,6 @@ class Entry implements Buildable
             content: $content,
             links: $links,
             summary: $summary
-            // $description,
-            // $author,
-            // $guid,
-            // $comments,
-            // $enclosure,
-            // $source
         );
     }
 
@@ -77,12 +58,6 @@ class Entry implements Buildable
         readonly private ?Content $content = null,
         readonly private ?Links $links = null,
         readonly private ?Summary $summary = null
-        // readonly private string $description = '',
-        // readonly private string $author = '',
-        // readonly private ?Guid $guid = null,
-        // readonly private string $comments = '',
-        // readonly private ?Enclosure $enclosure = null,
-        // readonly private ?Source $source = null
     ) {
     }
 
