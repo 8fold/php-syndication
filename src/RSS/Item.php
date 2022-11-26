@@ -34,13 +34,13 @@ class Item implements Buildable
 
     private string $author = '';
 
+    private ?Categories $categories = null;
+
     private string $comments = '';
 
     private ?Enclosure $enclosure = null;
 
     private ?Source $source = null;
-
-    private ?Categories $categories = null;
 
     public static function create(
         string $title = '',
@@ -61,6 +61,30 @@ class Item implements Buildable
         return $this;
     }
 
+    public function withAuthor(string $author): self
+    {
+        $this->author = $author;
+        return $this;
+    }
+
+    public function withCategories(Categories $categories): self
+    {
+        $this->categories = $categories;
+        return $this;
+    }
+
+    public function withComments(string $comments): self
+    {
+        $this->comments = $comments;
+        return $this;
+    }
+
+    public function withEnclosure(Enclosure $enclosure): self
+    {
+        $this->enclosure = $enclosure;
+        return $this;
+    }
+
     public function withGuid(Guid $guid): self
     {
         $this->guid = $guid;
@@ -73,43 +97,18 @@ class Item implements Buildable
         return $this;
     }
 
-    public function withAuthor(string $author): self
-    {
-        $this->author = $author;
-        return $this;
-    }
-
-    public function withComments(string $comments): self
-    {
-        $this->comments = $comments;
-        return $this;
-    }
-
-    public function withEclosure(Enclosure $enclosure): self
-    {
-        $this->enclosure = $enclosure;
-        return $this;
-    }
-
     public function withSource(Source $source): self
     {
         $this->source = $source;
         return $this;
     }
 
-    public function withCategories(Categories $categories): sefl
-    {
-        $this->categories = $categories;
-        return $this;
-    }
-
     public function isValid(): bool
     {
-        if (strlen($this->title) > 0) {
-            return true;
-        }
-
-        if (strlen($this->description) > 0) {
+        if (
+            strlen($this->title) > 0 or
+            strlen($this->description) > 0
+        ) {
             return true;
         }
         return false;
@@ -133,24 +132,17 @@ class Item implements Buildable
 
         $title = (strlen($this->title) === 0) ? '' : Element::title($this->title);
 
+        $link = (strlen($this->link) === 0) ? '' : Element::link($this->link);
+
         $description = (strlen($this->description) === 0)
             ? ''
             : Element::description($this->description);
-
-        $pubDate = '';
-        if ($this->pubDate !== null) {
-            $pubDate = Element::pubDate(
-                $this->pubDate->format(DateTime::RSS)
-            );
-        }
 
         $author = (strlen($this->author) === 0)
             ? ''
             : Element::author($this->author);
 
-        $link = (strlen($this->link) === 0) ? '' : Element::link($this->link);
-
-        $guid = ($this->guid === null) ? '' : $this->guid;
+        $categories = ($this->categories === null) ? '' : $this->categories;
 
         $comments = (strlen($this->comments) === 0)
             ? ''
@@ -160,21 +152,28 @@ class Item implements Buildable
             ? ''
             : $this->enclosure;
 
-        $source = ($this->source === null) ? '' : $this->source;
+        $guid = ($this->guid === null) ? '' : $this->guid;
 
-        $categories = ($this->categories === null) ? '' : $this->categories;
+        $pubDate = '';
+        if ($this->pubDate !== null) {
+            $pubDate = Element::pubDate(
+                $this->pubDate->format(DateTime::RSS)
+            );
+        }
+
+        $source = ($this->source === null) ? '' : $this->source;
 
         return (string) Element::item(
             $title,
-            $description,
-            $pubDate,
-            $author,
             $link,
-            $guid,
+            $description,
+            $author,
+            $categories,
             $comments,
             $enclosure,
-            $source,
-            $categories
+            $guid,
+            $pubDate,
+            $source
         );
     }
 }
