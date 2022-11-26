@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Eightfold\Syndication;
+namespace Eightfold\Syndication\Rss;
 
 use Stringable;
 
