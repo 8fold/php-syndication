@@ -1,17 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Eightfold\Syndication;
+namespace Eightfold\Syndication\Atom;
 
 use Stringable;
-use DateTime;
 
-use Eightfold\XMLBuilder\Contracts\Buildable;
+use DateTime;
 
 use Eightfold\XMLBuilder\Document as XMLDocument;
 use Eightfold\XMLBuilder\Element;
-
-use Eightfold\Syndication\Implementations\DocumentImp;
 
 use Eightfold\Syndication\Atom\Title;
 use Eightfold\Syndication\Atom\Generator;
@@ -28,25 +25,29 @@ use Eightfold\Syndication\Atom\Link;
 use Eightfold\Syndication\Atom\Entries;
 use Eightfold\Syndication\Atom\Entry;
 
-class DocumentAtom implements Buildable
+class Document implements Stringable
 {
-    use DocumentImp;
-
     private const VERSION = 'http://www.w3.org/2005/Atom';
 
-    private ?Contributors $contributors = null;
+    private string $xmlVersion = '1.0';
 
-    private ?Categories $categories = null;
+    private string $xmlEncoding = '';
 
-    private ?Generator $generator = null;
+    private string|bool $xmlStandalone = '';
+
+    private Contributors $contributors;
+
+    private Categories $categories;
+
+    private Generator $generator;
 
     private string $icon = '';
 
     private string $logo = '';
 
-    private ?Rights $rights = null;
+    private Rights $rights;
 
-    private ?Subtitle $subtitle = null;
+    private Subtitle $subtitle;
 
     public static function create(
         string $id,
@@ -74,6 +75,17 @@ class DocumentAtom implements Buildable
         readonly private ?Authors $authors = null,
         readonly private ?Links $links = null
     ) {
+    }
+
+    public function withXmlDeclaration(
+        string|float|int $version = '1.0',
+        string $encoding = 'UTF-8',
+        bool $standalone = true
+    ): self {
+        $this->xmlVersion = strval($version);
+        $this->xmlEncoding = $encoding;
+        $this->xmlStandalone = $standalone;
+        return $this;
     }
 
     public function withCategories(Categories $categories): self
@@ -177,11 +189,6 @@ class DocumentAtom implements Buildable
         return ! $this->isValid();
     }
 
-    public function build(): string
-    {
-        return strval($this);
-    }
-
     public function __toString(): string
     {
         if ($this->isInvalid()) {
@@ -200,7 +207,7 @@ class DocumentAtom implements Buildable
 
         $categories = '';
         if (
-            $this->categories !== null and
+            isset($this->categories) and
             $this->categories->count() > 0
         ) {
             $categories = $this->categories;
@@ -208,14 +215,14 @@ class DocumentAtom implements Buildable
 
         $contributors = '';
         if (
-            $this->contributors !== null and
+            isset($this->contributors) and
             $this->contributors->count() > 0
         ) {
             $contributors = $this->contributors;
         }
 
         $generator = '';
-        if ($this->generator !== null) {
+        if (isset($this->generator)) {
             $generator = $this->generator;
         }
 
@@ -230,12 +237,12 @@ class DocumentAtom implements Buildable
         }
 
         $rights = '';
-        if ($this->rights !== null) {
+        if (isset($this->rights)) {
             $rights = $this->rights;
         }
 
         $subtitle = '';
-        if ($this->subtitle !== null) {
+        if (isset($this->subtitle)) {
             $subtitle = $this->subtitle;
         }
 
@@ -258,10 +265,10 @@ class DocumentAtom implements Buildable
             $this->entries
         )->props('xmlns ' . self::VERSION);
 
-        $doc = $doc->setVersion($this->xmlVersion);
+        $doc = $doc->withVersion($this->xmlVersion);
 
         if (strlen($this->xmlEncoding) > 0) {
-            $doc = $doc->setEncoding($this->xmlEncoding);
+            $doc = $doc->withEncoding($this->xmlEncoding);
 
         } else {
             $doc = $doc->removeEncoding();
@@ -269,7 +276,7 @@ class DocumentAtom implements Buildable
         }
 
         if (is_bool($this->xmlStandalone)) {
-            $doc = $doc->setStandalone($this->xmlStandalone);
+            $doc = $doc->withStandalone($this->xmlStandalone);
 
         } else {
             $doc = $doc->removeStandalone();

@@ -1,9 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Eightfold\Syndication;
+namespace Eightfold\Syndication\Json;
 
 use StdClass;
+use Stringable;
 use JsonSerializable;
 
 use Eightfold\Syndication\Json\Items;
@@ -13,35 +14,35 @@ use Eightfold\Syndication\Json\Hubs;
 use Eightfold\Syndication\Json\CustomObjects;
 use Eightfold\Syndication\Json\CustomObject;
 
-class DocumentJson implements JsonSerializable
+class Document implements JsonSerializable
 {
     private const VERSION = 'https://jsonfeed.org/version/1.1';
 
-    private string $description = '';
+    private string|Stringable $description = '';
 
-    private string $userComment = '';
+    private string|Stringable $userComment = '';
 
-    private string $nextUrl = '';
+    private string|Stringable $nextUrl = '';
 
-    private string $icon = '';
+    private string|Stringable $icon = '';
 
-    private string $favicon = '';
+    private string|Stringable $favicon = '';
 
-    private ?Authors $authors = null;
+    private Authors $authors;
 
-    private string $language = '';
+    private string|Stringable $language = '';
 
     private bool $isExpired = false;
 
-    private ?Hubs $hubs = null;
+    private Hubs $hubs;
 
-    private ?CustomObjects $customObjects = null;
+    private CustomObjects $customObjects;
 
     public static function create(
-        string $title,
+        string|Stringable $title,
         Items $items,
-        string $homePageUrl = '',
-        string $feedUrl = ''
+        string|Stringable $homePageUrl = '',
+        string|Stringable $feedUrl = ''
     ): self {
         return new self(
             $title,
@@ -52,38 +53,38 @@ class DocumentJson implements JsonSerializable
     }
 
     final private function __construct(
-        readonly private string $title,
+        readonly private string|Stringable $title,
         readonly private Items $items,
-        readonly private string $homePageUrl = '',
-        readonly private string $feedUrl = ''
+        readonly private string|Stringable $homePageUrl = '',
+        readonly private string|Stringable $feedUrl = ''
     ) {
     }
 
-    public function withDescription(string $description): self
+    public function withDescription(string|Stringable $description): self
     {
         $this->description = $description;
         return $this;
     }
 
-    public function withUserComment(string $userComment): self
+    public function withUserComment(string|Stringable $userComment): self
     {
         $this->userComment = $userComment;
         return $this;
     }
 
-    public function withNextUrl(string $nextUrl): self
+    public function withNextUrl(string|Stringable $nextUrl): self
     {
         $this->nextUrl = $nextUrl;
         return $this;
     }
 
-    public function withIcon(string $icon): self
+    public function withIcon(string|Stringable $icon): self
     {
         $this->icon = $icon;
         return $this;
     }
 
-    public function withFavicon(string $favicon): self
+    public function withFavicon(string|Stringable $favicon): self
     {
         $this->favicon = $favicon;
         return $this;
@@ -95,7 +96,7 @@ class DocumentJson implements JsonSerializable
         return $this;
     }
 
-    public function withLanguage(string $language): self
+    public function withLanguage(string|Stringable $language): self
     {
         $this->language = $language;
         return $this;
@@ -119,6 +120,12 @@ class DocumentJson implements JsonSerializable
         return $this;
     }
 
+    public function withExtensions(CustomObjects $customObjects): self
+    {
+        return $this->withCustomObjects($customObjects);
+    }
+
+    /** JsonSerializable **/
     public function jsonSerialize(): mixed
     {
         $obj          = new StdClass();
@@ -153,7 +160,7 @@ class DocumentJson implements JsonSerializable
             $obj->favicon = $this->favicon;
         }
 
-        if ($this->authors !== null) {
+        if (isset($this->authors)) {
             $obj->authors = $this->authors;
         }
 
@@ -165,13 +172,13 @@ class DocumentJson implements JsonSerializable
             $obj->expired = $this->isExpired;
         }
 
-        if ($this->hubs !== null) {
+        if (isset($this->hubs)) {
             $obj->hubs = $this->hubs;
         }
 
         $obj->items = $this->items;
 
-        if ($this->customObjects !== null) {
+        if (isset($this->customObjects)) {
             foreach ($this->customObjects as $customObject) {
                 if (is_a($customObject, CustomObject::class)) {
                     $name = $customObject->name();

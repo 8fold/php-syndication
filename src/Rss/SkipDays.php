@@ -5,29 +5,35 @@ namespace Eightfold\Syndication\Rss;
 
 use Stringable;
 
-use Eightfold\XMLBuilder\Contracts\Buildable;
-
 use Eightfold\XMLBuilder\Element;
 
 use Eightfold\Syndication\Rss\Enums\SkipDaysDay;
 
-class SkipDays implements Buildable
+class SkipDays implements Stringable
 {
+    const MONDAY    = 'Monday';
+    const TUESDAY   = 'Tuesday';
+    const WEDNESDAY = 'Wednesday';
+    const THURSDAY  = 'Thursday';
+    const FRIDAY    = 'Friday';
+    const SATURDAY  = 'Saturday';
+    const SUNDAY    = 'Sunday';
+
     /**
      * @var string[]
      */
     private array $days = [];
 
-    public static function create(SkipDaysDay ...$days): self
+    public static function create(string ...$days): self
     {
         return new self(...$days);
     }
 
-    final private function __construct(SkipDaysDay ...$days)
+    final private function __construct(string ...$days)
     {
         foreach ($days as $day) {
-            if (in_array($day->value, $this->days) === false) {
-                $this->days[] = $day->value;
+            if (in_array($day, $this->days) === false) {
+                $this->days[] = $day;
             }
         }
     }

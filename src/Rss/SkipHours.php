@@ -5,11 +5,9 @@ namespace Eightfold\Syndication\Rss;
 
 use Stringable;
 
-use Eightfold\XMLBuilder\Contracts\Buildable;
-
 use Eightfold\XMLBuilder\Element;
 
-class SkipHours implements Buildable
+class SkipHours implements Stringable
 {
     /**
      * @var int[]
@@ -24,11 +22,6 @@ class SkipHours implements Buildable
     final private function __construct(int ...$hours)
     {
         $this->hours = array_unique($hours);
-    }
-
-    public function build(): string
-    {
-        return strval($this);
     }
 
     private function valid(): bool
@@ -53,6 +46,7 @@ class SkipHours implements Buildable
                 $h[] = Element::hour(
                     strval($hour)
                 );
+
             }
 
             if (count($h) === 24) {

@@ -5,11 +5,9 @@ namespace Eightfold\Syndication\Rss;
 
 use Stringable;
 
-use Eightfold\XMLBuilder\Contracts\Buildable;
-
 use Eightfold\XMLBuilder\Element;
 
-class Category implements Buildable
+class Category implements Stringable
 {
     public static function create(string $category, string $domain = ''): self
     {
@@ -20,11 +18,6 @@ class Category implements Buildable
         readonly private string $category,
         readonly private string $domain = ''
     ) {
-    }
-
-    public function build(): string
-    {
-        return strval($this);
     }
 
     public function __toString(): string
