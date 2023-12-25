@@ -26,7 +26,11 @@ class CustomObjects implements Traversable, Iterator, Countable, JsonSerializabl
         $this->collection = $objects;
     }
 
-    /** JsonSerializable **/
+    /**
+     * JsonSerializable
+     *
+     * @return array<string, string>
+     **/
     public function jsonSerialize(): array
     {
         return $this->collection;

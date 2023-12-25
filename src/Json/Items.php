@@ -26,7 +26,11 @@ class Items implements Traversable, Iterator, Countable, JsonSerializable
         $this->collection = $items;
     }
 
-    /** JsonSerializable **/
+    /**
+     * JsonSerializable
+     *
+     * @return array<string, string>
+     **/
     public function jsonSerialize(): array
     {
         return $this->collection;

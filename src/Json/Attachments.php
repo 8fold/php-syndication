@@ -26,7 +26,11 @@ class Attachments implements Traversable, Iterator, Countable, JsonSerializable
         $this->collection = $attachments;
     }
 
-    /** JsonSerializable **/
+    /**
+     * JsonSerializable
+     *
+     * @return array<string, string>
+     **/
     public function jsonSerialize(): array
     {
         return $this->collection;

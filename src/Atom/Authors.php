@@ -36,7 +36,11 @@ class Authors implements Traversable, Iterator, Countable, Stringable
         return $compiled;
     }
 
-    /** JsonSerializable **/
+    /**
+     * JsonSerializable
+     *
+     * @return array<string, string>
+     **/
     public function jsonSerialize(): array
     {
         return $this->collection;
