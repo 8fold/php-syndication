@@ -11,13 +11,13 @@ use Eightfold\Syndication\Rss\Enums\SkipDaysDay;
 
 class SkipDays implements Stringable
 {
-    const MONDAY    = 'Monday';
-    const TUESDAY   = 'Tuesday';
-    const WEDNESDAY = 'Wednesday';
-    const THURSDAY  = 'Thursday';
-    const FRIDAY    = 'Friday';
-    const SATURDAY  = 'Saturday';
-    const SUNDAY    = 'Sunday';
+    public const MONDAY    = 'Monday';
+    public const TUESDAY   = 'Tuesday';
+    public const WEDNESDAY = 'Wednesday';
+    public const THURSDAY  = 'Thursday';
+    public const FRIDAY    = 'Friday';
+    public const SATURDAY  = 'Saturday';
+    public const SUNDAY    = 'Sunday';
 
     /**
      * @var string[]

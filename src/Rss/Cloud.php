@@ -9,11 +9,9 @@ use Eightfold\XMLBuilder\Element;
 
 class Cloud implements Stringable
 {
-    const XMLRPC = 'xml-rpc';
-
-    const SOAP = 'soap';
-
-    const HTTPPOST = 'http-post';
+    public const XMLRPC   = 'xml-rpc';
+    public const SOAP     = 'soap';
+    public const HTTPPOST = 'http-post';
 
     /**
      * @param string $domain The domain name or IP address of the cloud.

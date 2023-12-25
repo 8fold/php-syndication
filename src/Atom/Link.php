@@ -9,11 +9,11 @@ use Eightfold\XMLBuilder\Element;
 
 class Link implements Stringable
 {
-    const ALTERNATE = 'alternate';
-    const ENCLOSURE = 'enclosure';
-    const RELATED   = 'related';
-    const SELF      = 'self';
-    const VIA       = 'via';
+    public const ALTERNATE = 'alternate';
+    public const ENCLOSURE = 'enclosure';
+    public const RELATED   = 'related';
+    public const SELF      = 'self';
+    public const VIA       = 'via';
 
     public static function create(
         string $href,

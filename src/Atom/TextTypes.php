@@ -5,7 +5,7 @@ namespace Eightfold\Syndication\Atom;
 
 class TextTypes
 {
-    const TEXT  = 'text';
-    const HTML  = 'html';
-    const XHTML = 'xhtml';
+    public const TEXT  = 'text';
+    public const HTML  = 'html';
+    public const XHTML = 'xhtml';
 }
