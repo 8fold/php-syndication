@@ -14,6 +14,8 @@ class Items implements Traversable, Iterator, Countable, Stringable
 {
     private array $collection = [];
 
+    private int $position = 0;
+
     public static function create(Item ...$items): self
     {
         return new self(...$items);
@@ -34,7 +36,11 @@ class Items implements Traversable, Iterator, Countable, Stringable
         return $compiled;
     }
 
-    /** JsonSerializable **/
+    /**
+     * JsonSerializable
+     *
+     * @return array<string, string>
+     */
     public function jsonSerialize(): array
     {
         return $this->collection;
