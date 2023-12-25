@@ -12,6 +12,8 @@ use Eightfold\Syndication\Rss\Item;
 
 class Items implements Traversable, Iterator, Countable, Stringable
 {
+    private array $collection = [];
+
     public static function create(Item ...$items): self
     {
         return new self(...$items);
