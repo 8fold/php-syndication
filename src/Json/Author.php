@@ -12,7 +12,7 @@ use Eightfold\Syndication\Json\CustomObject;
 
 class Author implements JsonSerializable
 {
-    private CusstomObjects $customObjects;
+    private CustomObjects $customObjects;
 
     public static function create(
         string|Stringable $name = '',
@@ -40,21 +40,36 @@ class Author implements JsonSerializable
         return $this->withCustomObjects($customObjects);
     }
 
+    private function name(): string
+    {
+        return (string) $this->name;
+    }
+
+    private function url(): string
+    {
+        return (string) $this->url;
+    }
+
+    private function avatar(): string
+    {
+        return (string) $this->avatar;
+    }
+
     /** JsonSerializable **/
     public function jsonSerialize(): StdClass
     {
         $obj = new StdClass();
 
-        if (strlen($this->name) > 0) {
-            $obj->name = (string) $this->name;
+        if (strlen($this->name()) > 0) {
+            $obj->name = $this->name();
         }
 
-        if (strlen($this->url) > 0) {
-            $obj->url = (string) $this->url;
+        if (strlen($this->url()) > 0) {
+            $obj->url = $this->url();
         }
 
-        if (strlen($this->avatar) > 0) {
-            $obj->avatar = (string) $this->avatar;
+        if (strlen($this->avatar()) > 0) {
+            $obj->avatar = (string) $this->avatar();
         }
 
         if (isset($this->customObjects)) {

@@ -125,6 +125,46 @@ class Document implements JsonSerializable
         return $this->withCustomObjects($customObjects);
     }
 
+    private function homePageUrl(): string
+    {
+        return (string) $this->homePageUrl;
+    }
+
+    private function feedUrl(): string
+    {
+        return (string) $this->feedUrl;
+    }
+
+    private function description(): string
+    {
+        return (string) $this->description;
+    }
+
+    private function userComment(): string
+    {
+        return (string) $this->userComment;
+    }
+
+    private function nextUrl(): string
+    {
+        return (string) $this->nextUrl;
+    }
+
+    private function icon(): string
+    {
+        return (string) $this->icon;
+    }
+
+    private function favicon(): string
+    {
+        return (string) $this->favicon;
+    }
+
+    private function language(): string
+    {
+        return (string) $this->language;
+    }
+
     /** JsonSerializable **/
     public function jsonSerialize(): mixed
     {
@@ -132,40 +172,40 @@ class Document implements JsonSerializable
         $obj->version = self::VERSION;
         $obj->title   = $this->title;
 
-        if (strlen($this->homePageUrl) > 0) {
-            $obj->home_page_url = $this->homePageUrl;
+        if (strlen($this->homePageUrl()) > 0) {
+            $obj->home_page_url = $this->homePageUrl();
         }
 
-        if (strlen($this->feedUrl) > 0) {
-            $obj->feed_url = $this->feedUrl;
+        if (strlen($this->feedUrl()) > 0) {
+            $obj->feed_url = $this->feedUrl();
         }
 
-        if (strlen($this->description) > 0) {
-            $obj->description = $this->description;
+        if (strlen($this->description()) > 0) {
+            $obj->description = $this->description();
         }
 
-        if (strlen($this->userComment) > 0) {
-            $obj->user_comment = $this->userComment;
+        if (strlen($this->userComment()) > 0) {
+            $obj->user_comment = $this->userComment();
         }
 
-        if (strlen($this->nextUrl) > 0) {
-            $obj->next_url = $this->nextUrl;
+        if (strlen($this->nextUrl()) > 0) {
+            $obj->next_url = $this->nextUrl();
         }
 
-        if (strlen($this->icon) > 0) {
-            $obj->icon = $this->icon;
+        if (strlen($this->icon()) > 0) {
+            $obj->icon = $this->icon();
         }
 
-        if (strlen($this->favicon) > 0) {
-            $obj->favicon = $this->favicon;
+        if (strlen($this->favicon()) > 0) {
+            $obj->favicon = $this->favicon();
         }
 
         if (isset($this->authors)) {
             $obj->authors = $this->authors;
         }
 
-        if (strlen($this->language) > 0) {
-            $obj->language = $this->language;
+        if (strlen($this->language()) > 0) {
+            $obj->language = $this->language();
         }
 
         if ($this->isExpired) {

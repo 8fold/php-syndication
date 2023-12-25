@@ -24,14 +24,15 @@ class CustomObject
 
     public function name(): string
     {
-        if (str_contains($this->name, '.')) {
+        $name = (string) $this->name;
+        if (str_contains($name, '.')) {
             return '';
         }
 
-        if (str_starts_with($this->name, '_')) {
-            return $this->name;
+        if (str_starts_with($name, '_')) {
+            return $name;
         }
-        return '_' . $this->name;
+        return '_' . $name;
     }
 
     public function object(): StdClass

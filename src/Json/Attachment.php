@@ -12,7 +12,7 @@ use Eightfold\Syndication\Json\CustomObject;
 
 class Attachment implements JsonSerializable
 {
-    private CusstomObjects $customObjects;
+    private CustomObjects $customObjects;
 
     public static function create(
         string|Stringable $url,
@@ -44,15 +44,30 @@ class Attachment implements JsonSerializable
         return $this->withCustomObjects($customObjects);
     }
 
+    private function url(): string
+    {
+        return (string) $this->url;
+    }
+
+    private function title(): string
+    {
+        return (string) $this->title;
+    }
+
+    private function mimeType(): string
+    {
+        return (string) $this->mimeType;
+    }
+
     /** JsonSerializable **/
     public function jsonSerialize(): StdClass
     {
         $obj = new StdClass();
-        $obj->url = $this->url;
-        $obj->mime_type = $this->mimeType;
+        $obj->url = $this->url();
+        $obj->mime_type = $this->mimeType();
 
-        if (strlen($this->title) > 0) {
-            $obj->title = $this->title;
+        if (strlen($this->title()) > 0) {
+            $obj->title = $this->title();
         }
 
         if ($this->size > 0) {
