@@ -5,11 +5,9 @@ namespace Eightfold\Syndication\Rss;
 
 use Stringable;
 
-use Eightfold\XMLBuilder\Contracts\Buildable;
-
 use Eightfold\XMLBuilder\Element;
 
-class Enclosure implements Buildable
+class Enclosure implements Stringable
 {
     public static function create(
         string $url,
@@ -24,11 +22,6 @@ class Enclosure implements Buildable
         readonly private string|int $length,
         readonly private string $type
     ) {
-    }
-
-    public function build(): string
-    {
-        return strval($this);
     }
 
     public function __toString(): string

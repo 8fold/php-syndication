@@ -3,11 +3,11 @@ declare(strict_types=1);
 
 namespace Eightfold\Syndication\Atom;
 
-use Eightfold\XMLBuilder\Contracts\Buildable;
+use Stringable;
 
 use Eightfold\XMLBuilder\Element;
 
-class Generator implements Buildable
+class Generator implements Stringable
 {
     public static function create(
         string $content,
@@ -22,11 +22,6 @@ class Generator implements Buildable
         readonly private string $uri = '',
         readonly private string $version = ''
     ) {
-    }
-
-    public function build(): string
-    {
-        return strval($this);
     }
 
     public function __toString(): string

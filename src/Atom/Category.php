@@ -4,13 +4,12 @@ declare(strict_types=1);
 namespace Eightfold\Syndication\Atom;
 
 use Stringable;
-use DateTime;
 
-use Eightfold\XMLBuilder\Contracts\Buildable;
+use DateTime;
 
 use Eightfold\XMLBuilder\Element;
 
-class Category implements Buildable
+class Category implements Stringable
 {
     public static function create(
         string $term,
@@ -25,11 +24,6 @@ class Category implements Buildable
         readonly private string $scheme = '',
         readonly private string $label = ''
     ) {
-    }
-
-    public function build(): string
-    {
-        return strval($this);
     }
 
     public function __toString(): string

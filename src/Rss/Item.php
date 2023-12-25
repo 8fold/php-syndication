@@ -12,35 +12,33 @@ declare(strict_types=1);
 namespace Eightfold\Syndication\Rss;
 
 use Stringable;
-use DateTime;
 
-use Eightfold\XMLBuilder\Contracts\Buildable;
+use DateTime;
 
 use Eightfold\XMLBuilder\Element;
 
 use Eightfold\Syndication\Rss\Enclosure;
-
 use Eightfold\Syndication\Rss\Guid;
 use Eightfold\Syndication\Rss\Source;
 use Eightfold\Syndication\Rss\Categories;
 
-class Item implements Buildable
+class Item implements Stringable
 {
     private string $link = '';
 
-    private ?Guid $guid = null;
+    private Guid $guid;
 
-    private ?DateTime $pubDate = null;
+    private DateTime $pubDate;
 
     private string $author = '';
 
-    private ?Categories $categories = null;
+    private Categories $categories;
 
     private string $comments = '';
 
-    private ?Enclosure $enclosure = null;
+    private Enclosure $enclosure;
 
-    private ?Source $source = null;
+    private Source $source;
 
     public static function create(
         string $title = '',
@@ -142,26 +140,26 @@ class Item implements Buildable
             ? ''
             : Element::author($this->author);
 
-        $categories = ($this->categories === null) ? '' : $this->categories;
+        $categories = (isset($this->categories)) ? $this->categories : '';
 
         $comments = (strlen($this->comments) === 0)
             ? ''
             : Element::comments($this->comments);
 
-        $enclosure = ($this->enclosure === null)
-            ? ''
-            : $this->enclosure;
+        $enclosure = (isset($this->enclosure))
+            ? $this->enclosure
+            : '';
 
-        $guid = ($this->guid === null) ? '' : $this->guid;
+        $guid = (isset($this->guid)) ? $this->guid : '';
 
         $pubDate = '';
-        if ($this->pubDate !== null) {
+        if (isset($this->pubDate)) {
             $pubDate = Element::pubDate(
                 $this->pubDate->format(DateTime::RSS)
             );
         }
 
-        $source = ($this->source === null) ? '' : $this->source;
+        $source = (isset($this->source)) ? $this->source : '';
 
         return (string) Element::item(
             $title,

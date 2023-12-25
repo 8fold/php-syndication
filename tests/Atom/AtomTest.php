@@ -5,7 +5,7 @@ namespace Eightfold\Syndication\Tests\Atom;
 
 use PHPUnit\Framework\TestCase;
 
-use Eightfold\Syndication\DocumentAtom;
+use Eightfold\Syndication\Atom\Document;
 
 use Eightfold\Syndication\Atom\Title;
 use Eightfold\Syndication\Atom\Content;
@@ -16,8 +16,6 @@ use Eightfold\Syndication\Atom\Author;
 
 use Eightfold\Syndication\Atom\Links;
 use Eightfold\Syndication\Atom\Link;
-
-use Eightfold\Syndication\Atom\Enums\LinkRel;
 
 use Eightfold\Syndication\Atom\Entries;
 use Eightfold\Syndication\Atom\Entry;
@@ -31,11 +29,11 @@ class AtomTest extends TestCase
      */
     public function can_output_sample_01(): void
     {
-        $file = __DIR__ . '/sample-01.xml';
+        $file = __DIR__ . '/samples/01.xml';
 
         $expected = file_get_contents($file);
 
-        $result = (string) DocumentAtom::create(
+        $result = (string) Document::create(
             id: 'urn:uuid:60a76c80-d399-11d9-b93C-0003939e0af6',
             title: Title::create('Example Feed'),
             updated: DateTime::createFromFormat(
@@ -64,7 +62,7 @@ class AtomTest extends TestCase
                     )
                 )
             )
-        )->xmlDeclaration();
+        )->withXmlDeclaration();
 
         $this->assertSame(
             $expected,
@@ -79,7 +77,7 @@ class AtomTest extends TestCase
     {
         $expected = '';
 
-        $result = (string) DocumentAtom::create(
+        $result = (string) Document::create(
             title: Title::create('Scripting News'),
             updated: DateTime::createFromFormat(
                 DateTime::ATOM,
@@ -92,7 +90,7 @@ class AtomTest extends TestCase
                 ),
                 Link::create(
                     href: '/feed',
-                    rel: LinkRel::ALTERNATE
+                    rel: Link::ALTERNATE
                 )
             ),
             entries: Entries::create(
@@ -117,7 +115,7 @@ class AtomTest extends TestCase
         <feed xmlns="http://www.w3.org/2005/Atom"><id>some_unique_string</id><title>Scripting News</title><updated>2003-12-13T18:30:02+00:00</updated><link href="/feed" /><link href="/feed" rel="self" /><entry><title>Title</title><id>some_unique_string</id><updated>2003-12-13T18:30:02Z</updated><author><name>John Doe</name></author><content>/feed</content></entry></feed>
         xml;
 
-        $result = (string) DocumentAtom::create(
+        $result = (string) Document::create(
             title: Title::create('Scripting News'),
             updated: DateTime::createFromFormat(
                 DateTime::ATOM,
@@ -130,7 +128,7 @@ class AtomTest extends TestCase
                 ),
                 Link::create(
                     href: '/feed',
-                    rel: LinkRel::SELF
+                    rel: Link::SELF
                 )
             ),
             entries: Entries::create(
@@ -162,7 +160,7 @@ class AtomTest extends TestCase
     {
         $expected = '';
 
-        $result = (string) DocumentAtom::create(
+        $result = (string) Document::create(
             title: Title::create('Scripting News'),
             updated: DateTime::createFromFormat(
                 DateTime::ATOM,
@@ -191,7 +189,7 @@ class AtomTest extends TestCase
         <feed xmlns="http://www.w3.org/2005/Atom"><id>some_unique_string</id><title>Scripting News</title><updated>2003-12-13T18:30:02+00:00</updated><author><name>John Doe</name></author><author><name>Jane Doe</name></author><entry><title>Title</title><id>some_unique_string</id><updated>2003-12-13T18:30:02Z</updated><content>Hello, World!</content></entry></feed>
         xml;
 
-        $result = (string) DocumentAtom::create(
+        $result = (string) Document::create(
             title: Title::create('Scripting News'),
             updated: DateTime::createFromFormat(
                 DateTime::ATOM,
@@ -225,7 +223,7 @@ class AtomTest extends TestCase
         <feed xmlns="http://www.w3.org/2005/Atom"><id>some_unique_string</id><title>Scripting News</title><updated>2003-12-13T18:30:02+00:00</updated><entry><title>Title</title><id>some_unique_string</id><updated>2003-12-13T18:30:02Z</updated><author><name>John Doe</name></author><content>Hello, World!</content></entry><entry><title>Title</title><id>some_unique_string</id><updated>2003-12-13T18:30:02Z</updated><author><name>Jane Doe</name></author><content>Hello, World!</content></entry></feed>
         xml;
 
-        $result = (string) DocumentAtom::create(
+        $result = (string) Document::create(
             id: 'some_unique_string',
             title: Title::create('Scripting News'),
             updated: DateTime::createFromFormat(

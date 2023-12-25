@@ -5,11 +5,9 @@ namespace Eightfold\Syndication\Rss;
 
 use Stringable;
 
-use Eightfold\XMLBuilder\Contracts\Buildable;
-
 use Eightfold\XMLBuilder\Element;
 
-class Image implements Buildable
+class Image implements Stringable
 {
     public static function create(
         string $url,

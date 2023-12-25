@@ -5,6 +5,7 @@ namespace Eightfold\Syndication\Json;
 
 use DateTime;
 use StdClass;
+use Stringable;
 use JsonSerializable;
 
 use Eightfold\Syndication\Json\ContentHtml;
@@ -19,36 +20,36 @@ use Eightfold\Syndication\Json\CustomObject;
  */
 class Item implements JsonSerializable
 {
-    private string|ContentHtml|null $extraContent = null;
+    private string|Stringable|ContentHtml $extraContent;
 
-    private string $url = '';
+    private string|Stringable $url = '';
 
-    private string $externalUrl = '';
+    private string|Stringable $externalUrl = '';
 
-    private string $title = '';
+    private string|Stringable $title = '';
 
-    private string $summary = '';
+    private string|Stringable $summary = '';
 
-    private string $image = '';
+    private string|Stringable $image = '';
 
-    private string $bannerImage = '';
+    private string|Stringable $bannerImage = '';
 
-    private ?DateTime $datePublished = null;
+    private DateTime $datePublished;
 
-    private ?DateTime $dateModified = null;
+    private DateTime $dateModified;
 
-    private ?Authors $authors = null;
+    private Authors $authors;
 
     /**
-     * @var string[]
+     * @var array<int, string|Stringable>
      */
     private array $tags = [];
 
-    private string $language = '';
+    private string|Stringable $language = '';
 
-    private ?Attachments $attachments = null;
+    private Attachments $attachments;
 
-    private ?CustomObjects $customObjects = null;
+    private CustomObjects $customObjects;
 
     public static function create(
         string $id,
@@ -63,43 +64,44 @@ class Item implements JsonSerializable
     ) {
     }
 
-    public function withExtraContent(string|ContentHtml $extraContent): self
-    {
+    public function withExtraContent(
+        string|Stringable|ContentHtml $extraContent
+    ): self {
         $this->extraContent = $extraContent;
         return $this;
     }
 
-    public function withUrl(string $url): self
+    public function withUrl(string|Stringable $url): self
     {
         $this->url = $url;
         return $this;
     }
 
-    public function withExternalUrl(string $externalUrl): self
+    public function withExternalUrl(string|Stringable $externalUrl): self
     {
         $this->externalUrl = $externalUrl;
         return $this;
     }
 
-    public function withTitle(string $title): self
+    public function withTitle(string|Stringable $title): self
     {
         $this->title = $title;
         return $this;
     }
 
-    public function withSummary(string $summary): self
+    public function withSummary(string|Stringable $summary): self
     {
         $this->summary = $summary;
         return $this;
     }
 
-    public function withImage(string $image): self
+    public function withImage(string|Stringable $image): self
     {
         $this->image = $image;
         return $this;
     }
 
-    public function withBannerImage(string $bannerImage): self
+    public function withBannerImage(string|Stringable $bannerImage): self
     {
         $this->bannerImage = $bannerImage;
         return $this;
@@ -123,13 +125,13 @@ class Item implements JsonSerializable
         return $this;
     }
 
-    public function withTags(string ...$tags): self
+    public function withTags(string|Stringable ...$tags): self
     {
-        $this->tags = $tags;
+        $this->tags = array_values($tags);
         return $this;
     }
 
-    public function withLanguage(string $language): self
+    public function withLanguage(string|Stringable $language): self
     {
         $this->language = $language;
         return $this;
@@ -147,21 +149,72 @@ class Item implements JsonSerializable
         return $this;
     }
 
+    public function withExtensions(CustomObjects $customObjects): self
+    {
+        return $this->withCustomObjects($customObjects);
+    }
+
+    private function url(): string
+    {
+        return (string) $this->url;
+    }
+
+    private function externalUrl(): string
+    {
+        return (string) $this->externalUrl;
+    }
+
+    private function title(): string
+    {
+        return (string) $this->title;
+    }
+
+    private function content(): string
+    {
+        return (string) $this->content;
+    }
+
+    private function extraContent(): string
+    {
+        return (string) $this->extraContent;
+    }
+
+    private function summary(): string
+    {
+        return (string) $this->summary;
+    }
+
+    private function image(): string
+    {
+        return (string) $this->image;
+    }
+
+    private function bannerImage(): string
+    {
+        return (string) $this->bannerImage;
+    }
+
+    private function language(): string
+    {
+        return (string) $this->language;
+    }
+
+    /** JsonSerializable **/
     public function jsonSerialize(): mixed
     {
         $obj = new StdClass();
         $obj->id = $this->id;
 
-        if (strlen($this->url) > 0) {
-            $obj->url = $this->url;
+        if (strlen($this->url()) > 0) {
+            $obj->url = $this->url();
         }
 
-        if (strlen($this->externalUrl) > 0) {
-            $obj->external_url = $this->externalUrl;
+        if (strlen($this->externalUrl()) > 0) {
+            $obj->external_url = $this->externalUrl();
         }
 
-        if (strlen($this->title) > 0) {
-            $obj->title = $this->title;
+        if (strlen($this->title()) > 0) {
+            $obj->title = $this->title();
         }
 
         if (
@@ -171,11 +224,11 @@ class Item implements JsonSerializable
             $obj->content_html = (string) $this->content;
 
         } else {
-            $obj->content_text = $this->content;
+            $obj->content_text = $this->content();
 
         }
 
-        if ($this->extraContent !== null) {
+        if (isset($this->extraContent)) {
             if (
                 is_object($this->extraContent) and
                 is_a($this->extraContent, ContentHtml::class)
@@ -183,32 +236,32 @@ class Item implements JsonSerializable
                 $obj->content_html = (string) $this->extraContent;
 
             } else {
-                $obj->content_text = $this->extraContent;
+                $obj->content_text = $this->extraContent();
 
             }
         }
 
-        if (strlen($this->summary) > 0) {
-            $obj->summary = $this->summary;
+        if (strlen($this->summary()) > 0) {
+            $obj->summary = $this->summary();
         }
 
-        if (strlen($this->image) > 0) {
-            $obj->image = $this->image;
+        if (strlen($this->image()) > 0) {
+            $obj->image = $this->image();
         }
 
-        if (strlen($this->bannerImage) > 0) {
-            $obj->banner_image = $this->bannerImage;
+        if (strlen($this->bannerImage()) > 0) {
+            $obj->banner_image = $this->bannerImage();
         }
 
-        if ($this->datePublished !== null) {
+        if (isset($this->datePublished)) {
             $obj->date_published = $this->datePublished->format(DateTime::ATOM);
         }
 
-        if ($this->dateModified !== null) {
+        if (isset($this->dateModified)) {
             $obj->date_modified = $this->dateModified->format(DateTime::ATOM);
         }
 
-        if ($this->authors !== null) {
+        if (isset($this->authors)) {
             $obj->authors = $this->authors;
         }
 
@@ -216,15 +269,15 @@ class Item implements JsonSerializable
             $obj->tags = $this->tags;
         }
 
-        if (strlen($this->language) > 0) {
-            $obj->language = $this->language;
+        if (strlen($this->language()) > 0) {
+            $obj->language = $this->language();
         }
 
-        if ($this->attachments !== null) {
+        if (isset($this->attachments)) {
             $obj->attachments = $this->attachments;
         }
 
-        if ($this->customObjects !== null) {
+        if (isset($this->customObjects)) {
             foreach ($this->customObjects as $customObject) {
                 if (is_a($customObject, CustomObject::class)) {
                     $name = $customObject->name();

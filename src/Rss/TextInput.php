@@ -5,11 +5,9 @@ namespace Eightfold\Syndication\Rss;
 
 use Stringable;
 
-use Eightfold\XMLBuilder\Contracts\Buildable;
-
 use Eightfold\XMLBuilder\Element;
 
-class TextInput implements Buildable
+class TextInput implements Stringable
 {
     public static function create(
         string $title,
@@ -26,11 +24,6 @@ class TextInput implements Buildable
         readonly private string $name,
         readonly private string $link
     ) {
-    }
-
-    public function build(): string
-    {
-        return strval($this);
     }
 
     public function __toString(): string

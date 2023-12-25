@@ -4,9 +4,10 @@ declare(strict_types=1);
 namespace Eightfold\Syndication\Atom;
 
 use Stringable;
+
 use DateTime;
 
-use Eightfold\XMLBuilder\Contracts\Buildable;
+// use Eightfold\XMLBuilder\Contracts\Buildable;
 
 use Eightfold\XMLBuilder\Element;
 
@@ -21,17 +22,17 @@ use Eightfold\Syndication\Atom\Link;
 
 use Eightfold\Syndication\Atom\Categories;
 
-class Entry implements Buildable
+class Entry implements Stringable
 {
-    private ?Categories $categories = null;
+    private Categories $categories;
 
-    private ?Contributors $contributors = null;
+    private Contributors $contributors;
 
-    private ?DateTime $published = null;
+    private DateTime $published;
 
-    private ?Rights $rights = null;
+    private Rights $rights;
 
-    private ?Subtitle $subtitle = null;
+    private Subtitle $subtitle;
 
     public static function create(
         Title $title,
@@ -141,49 +142,49 @@ class Entry implements Buildable
         }
 
         $authors = '';
-        if ($this->authors !== null) {
+        if (isset($this->authors)) {
             $authors = $this->authors;
         }
 
         $content = '';
-        if ($this->content !== null) {
+        if (isset($this->content)) {
             $content = $this->content;
         }
 
         $links = '';
-        if ($this->links !== null) {
+        if (isset($this->links)) {
             $links = $this->links;
         }
 
         $summary = '';
-        if ($this->summary !== null) {
+        if (isset($this->summary)) {
             $summary = $this->summary;
         }
 
         $categories = '';
-        if ($this->categories !== null) {
+        if (isset($this->categories)) {
             $categories = $this->categories;
         }
 
         $contributors = '';
-        if ($this->contributors !== null) {
+        if (isset($this->contributors)) {
             $contributors = $this->contributors;
         }
 
         $published = '';
-        if ($this->published !== null) {
+        if (isset($this->published)) {
             $published = Element::published(
                 $this->published->format(DateTime::ATOM)
             );
         }
 
         $rights = '';
-        if ($this->rights !== null) {
+        if (isset($this->rights)) {
             $rights = $this->rights;
         }
 
         $subtitle = '';
-        if ($this->subtitle !== null) {
+        if (isset($this->subtitle)) {
             $subtitle = $this->subtitle;
         }
 

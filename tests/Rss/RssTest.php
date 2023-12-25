@@ -7,7 +7,7 @@ use DateTime;
 
 use PHPUnit\Framework\TestCase;
 
-use Eightfold\Syndication\DocumentRss;
+use Eightfold\Syndication\Rss\Document;
 
 use Eightfold\Syndication\Rss\Items;
 use Eightfold\Syndication\Rss\Item;
@@ -23,7 +23,7 @@ class RssTest extends TestCase
     {
         $expected = '';
 
-        $result = (string) DocumentRss::create(
+        $result = (string) Document::create(
             title: 'title',
             link: '/feed',
             description: 'description',
@@ -35,11 +35,11 @@ class RssTest extends TestCase
             $result
         );
 
-        $file = __DIR__ . '/required-01.xml';
+        $file = __DIR__ . '/samples/required-01.xml';
 
         $expected = file_get_contents($file);
 
-        $result = (string) DocumentRss::create(
+        $result = (string) Document::create(
             title: 'title',
             link: '/feed',
             description: 'description',
@@ -55,11 +55,11 @@ class RssTest extends TestCase
             $result . "\n"
         );
 
-        $file = __DIR__ . '/required-02.xml';
+        $file = __DIR__ . '/samples/required-02.xml';
 
         $expected = file_get_contents($file);
 
-        $result = (string) DocumentRss::create(
+        $result = (string) Document::create(
             title: 'title',
             link: '/feed',
             description: 'description',
@@ -81,11 +81,11 @@ class RssTest extends TestCase
      */
     public function can_output_sample_01(): void
     {
-        $path = __DIR__ . '/sample-01.xml';
+        $path = __DIR__ . '/samples/01.xml';
 
         $expected = htmlspecialchars_decode(file_get_contents($path));
 
-        $result = (string) DocumentRss::create(
+        $result = (string) Document::create(
             title:       'Liftoff News',
             link:        'http://liftoff.msfc.nasa.gov/',
             description: 'Liftoff to Space Exploration.',
@@ -158,9 +158,13 @@ class RssTest extends TestCase
                 DateTime::RSS,
                 'Tue, 10 Jun 2003 09:41:01 +0000'
             )
-        )->withDocs('https://cyber.harvard.edu/rss/rss.html')->withGenerator(
+        )->withDocs(
+            'https://cyber.harvard.edu/rss/rss.html'
+        )->withGenerator(
             'Weblog Editor 2.0'
-        )->withManagingEditor('editor@example.com')->withWebMaster(
+        )->withManagingEditor(
+            'editor@example.com'
+        )->withWebMaster(
             'webmaster@example.com'
         );
 

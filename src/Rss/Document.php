@@ -1,19 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Eightfold\Syndication;
+namespace Eightfold\Syndication\Rss;
 
 use Stringable;
-use DateTime;
 
-use Eightfold\XMLBuilder\Contracts\Buildable;
+use DateTime;
 
 use Eightfold\XMLBuilder\Document as XMLDocument;
 use Eightfold\XMLBuilder\Element;
-
-use Eightfold\Syndication\Rss\Document as RSSDocument;
-
-use Eightfold\Syndication\Implementations\DocumentImp;
 
 use Eightfold\Syndication\Rss\Items;
 use Eightfold\Syndication\Rss\Categories;
@@ -23,11 +18,15 @@ use Eightfold\Syndication\Rss\TextInput;
 use Eightfold\Syndication\Rss\SkipHours;
 use Eightfold\Syndication\Rss\SkipDays;
 
-class DocumentRss implements Buildable
+class Document implements Stringable
 {
-    use DocumentImp;
-
     private const VERSION = '2.0';
+
+    private string $xmlVersion = '1.0';
+
+    private string $xmlEncoding = '';
+
+    private string|bool $xmlStandalone = '';
 
     private string $language = '';
 
@@ -37,29 +36,29 @@ class DocumentRss implements Buildable
 
     private string $webMaster = '';
 
-    private ?DateTime $pubDate = null;
+    private DateTime $pubDate;
 
-    private ?DateTime $lastBuildDate = null;
+    private DateTime $lastBuildDate;
 
-    private ?Categories $categories = null;
+    private Categories $categories;
 
     private string $generator = '';
 
     private string $docs = '';
 
-    private ?Cloud $cloud = null;
+    private Cloud $cloud;
 
     private string $ttl = '';
 
-    private ?Image $image = null;
+    private Image $image;
 
     private string $rating = '';
 
-    private ?TextInput $textInput = null;
+    private TextInput $textInput;
 
-    private ?SkipHours $skipHours = null;
+    private SkipHours $skipHours;
 
-    private ?SkipDays $skipDays = null;
+    private SkipDays $skipDays;
 
     private string $renderedItems = '';
 
@@ -83,6 +82,17 @@ class DocumentRss implements Buildable
         readonly private string $description,
         readonly private Items $items
     ) {
+    }
+
+    public function withXmlDeclaration(
+        string|float|int $version = '1.0',
+        string $encoding = 'UTF-8',
+        bool $standalone = true
+    ): self {
+        $this->xmlVersion = strval($version);
+        $this->xmlEncoding = $encoding;
+        $this->xmlStandalone = $standalone;
+        return $this;
     }
 
     public function withLanguage(string $language): self
@@ -234,21 +244,21 @@ class DocumentRss implements Buildable
         }
 
         $pubDate = '';
-        if ($this->pubDate !== null) {
+        if (isset($this->pubDate)) {
             $pubDate = Element::pubDate(
                 $this->pubDate->format(DateTime::RSS)
             );
         }
 
         $lastBuildDate = '';
-        if ($this->lastBuildDate !== null) {
+        if (isset($this->lastBuildDate)) {
             $lastBuildDate = Element::lastBuildDate(
                 $this->lastBuildDate->format(DateTime::RSS)
             );
         }
 
         $categories = '';
-        if ($this->categories !== null) {
+        if (isset($this->categories)) {
             $categories = $this->categories;
         }
 
@@ -263,7 +273,7 @@ class DocumentRss implements Buildable
         }
 
         $cloud = '';
-        if ($this->cloud !== null) {
+        if (isset($this->cloud)) {
             $cloud = $this->cloud;
         }
 
@@ -273,7 +283,7 @@ class DocumentRss implements Buildable
         }
 
         $image = '';
-        if ($this->image !== null) {
+        if (isset($this->image)) {
             $image = $this->image;
         }
 
@@ -283,17 +293,17 @@ class DocumentRss implements Buildable
         }
 
         $textInput = '';
-        if ($this->textInput !== null) {
+        if (isset($this->textInput)) {
             $textInput = $this->textInput;
         }
 
         $skipHours = '';
-        if ($this->skipHours !== null) {
+        if (isset($this->skipHours)) {
             $skipHours = $this->skipHours;
         }
 
         $skipDays = '';
-        if ($this->skipDays !== null) {
+        if (isset($this->skipDays)) {
             $skipDays = $this->skipDays;
         }
 
@@ -321,10 +331,10 @@ class DocumentRss implements Buildable
             )
         )->props('version ' . self::VERSION);
 
-        $doc = $doc->setVersion($this->xmlVersion);
+        $doc = $doc->withVersion($this->xmlVersion);
 
         if (strlen($this->xmlEncoding) > 0) {
-            $doc = $doc->setEncoding($this->xmlEncoding);
+            $doc = $doc->withEncoding($this->xmlEncoding);
 
         } else {
             $doc = $doc->removeEncoding();
@@ -332,7 +342,7 @@ class DocumentRss implements Buildable
         }
 
         if (is_bool($this->xmlStandalone)) {
-            $doc = $doc->setStandalone($this->xmlStandalone);
+            $doc = $doc->withStandalone($this->xmlStandalone);
 
         } else {
             $doc = $doc->removeStandalone();

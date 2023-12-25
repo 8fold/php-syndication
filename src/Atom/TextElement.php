@@ -1,20 +1,20 @@
 <?php
 declare(strict_types=1);
 
-namespace Eightfold\Syndication\Atom\Abstracts;
+namespace Eightfold\Syndication\Atom;
 
-use Eightfold\XMLBuilder\Contracts\Buildable;
+use Stringable;
 
 use Eightfold\XMLBuilder\Element;
 
-use Eightfold\Syndication\Atom\Enums\TextTypes;
+use Eightfold\Syndication\Atom\TextTypes;
 
-class TextElement implements Buildable
+class TextElement implements Stringable
 {
     public static function create(
         string $element,
         string $content,
-        TextTypes $type = TextTypes::TEXT
+        string $type = TextTypes::TEXT
     ): self {
         return new self($element, $content, $type);
     }
@@ -22,13 +22,8 @@ class TextElement implements Buildable
     final private function __construct(
         readonly private string $element,
         readonly private string $content,
-        readonly private TextTypes $type
+        readonly private string $type
     ) {
-    }
-
-    public function build(): string
-    {
-        return strval($this);
     }
 
     public function __toString(): string
@@ -37,6 +32,6 @@ class TextElement implements Buildable
         if ($this->type === TextTypes::TEXT) {
             return (string) $e;
         }
-        return (string) $e->props('type ' . $this->type->value);
+        return (string) $e->props('type ' . $this->type);
     }
 }
