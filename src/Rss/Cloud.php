@@ -19,7 +19,7 @@ class Cloud implements Stringable
      * @param string $path The location of its responder.
      * @param string $registerProcedure The name of the procedure to call to
      *        request notification.
-     * @param CloudProtocol $protocol Is xml-rpc, soap, or
+     * @param string $protocol Is xml-rpc, soap, or
      *        http-post (case-sensitive), indicating which protocol is to be used.
      *
      * @return self
