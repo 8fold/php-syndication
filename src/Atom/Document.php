@@ -130,6 +130,9 @@ class Document implements Stringable
         return $this;
     }
 
+    /**
+     * Atom feeds MUST have at least one listed author.
+     */
     private function passesAuthorCheck(): bool
     {
         if ($this->authors !== null) {
