@@ -7,8 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 use Eightfold\Syndication\Rss\Cloud;
 
-use Eightfold\Syndication\Rss\Enums\CloudProtocol;
-
 class CloudTest extends TestCase
 {
     /**
@@ -23,7 +21,7 @@ class CloudTest extends TestCase
             '80',
             '/RPC2',
             'xmlStorageSystem.rssPleaseNotify',
-            CloudProtocol::XMLRPC
+            Cloud::XMLRPC
         );
 
         $this->assertSame(

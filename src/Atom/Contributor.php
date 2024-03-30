@@ -4,13 +4,12 @@ declare(strict_types=1);
 namespace Eightfold\Syndication\Atom;
 
 use Stringable;
-use DateTime;
 
-use Eightfold\XMLBuilder\Contracts\Buildable;
+use DateTime;
 
 use Eightfold\XMLBuilder\Element;
 
-class Contributor implements Buildable
+class Contributor implements Stringable
 {
     public static function create(
         string $name,
@@ -27,16 +26,12 @@ class Contributor implements Buildable
     ) {
     }
 
-    public function build(): string
-    {
-        return strval($this);
-    }
-
     public function __toString(): string
     {
         $uri = (strlen($this->uri) === 0) ? '' : Element::uri($this->uri);
 
         $email = (strlen($this->email) === 0) ? '' : Element::email($this->email);
+
         return (string) Element::contributor(
             Element::name($this->name),
             $uri,

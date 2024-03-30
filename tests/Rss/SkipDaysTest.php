@@ -6,7 +6,6 @@ namespace Eightfold\Syndication\Tests\Rss;
 use PHPUnit\Framework\TestCase;
 
 use Eightfold\Syndication\Rss\SkipDays;
-use Eightfold\Syndication\Rss\Enums\SkipDaysDay;
 
 class SkipDaysTest extends TestCase
 {
@@ -27,7 +26,7 @@ class SkipDaysTest extends TestCase
         $expected = '<skipDays><day>Monday</day></skipDays>';
 
         $result = (string) SkipDays::create(
-            SkipDaysDay::MONDAY
+            SkipDays::MONDAY
         );
 
         $this->assertSame(
@@ -44,13 +43,13 @@ class SkipDaysTest extends TestCase
         $expected = '<skipDays><day>Monday</day><day>Tuesday</day></skipDays>';
 
         $result = (string) SkipDays::create(
-            SkipDaysDay::MONDAY,
-            SkipDaysDay::MONDAY,
-            SkipDaysDay::MONDAY,
-            SkipDaysDay::TUESDAY,
-            SkipDaysDay::TUESDAY,
-            SkipDaysDay::MONDAY,
-            SkipDaysDay::MONDAY,
+            SkipDays::MONDAY,
+            SkipDays::MONDAY,
+            SkipDays::MONDAY,
+            SkipDays::TUESDAY,
+            SkipDays::TUESDAY,
+            SkipDays::MONDAY,
+            SkipDays::MONDAY,
         );
 
         $this->assertSame(

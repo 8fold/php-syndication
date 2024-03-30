@@ -4,14 +4,20 @@ declare(strict_types=1);
 namespace Eightfold\Syndication\Json;
 
 use StdClass;
+use Stringable;
 use JsonSerializable;
+
+use Eightfold\Syndication\Json\CustomObjects;
+use Eightfold\Syndication\Json\CustomObject;
 
 class Attachment implements JsonSerializable
 {
+    private CustomObjects $customObjects;
+
     public static function create(
-        string $url,
-        string $mimeType,
-        string $title = '',
+        string|Stringable $url,
+        string|Stringable $mimeType,
+        string|Stringable $title = '',
         int $size = 0,
         int $duration = 0
     ): self {
@@ -19,22 +25,49 @@ class Attachment implements JsonSerializable
     }
 
     final private function __construct(
-        readonly private string $url,
-        readonly private string $mimeType,
-        readonly private string $title = '',
+        readonly private string|Stringable $url,
+        readonly private string|Stringable $mimeType,
+        readonly private string|Stringable $title = '',
         readonly private int $size = 0,
         readonly private int $duration = 0
     ) {
     }
 
-    public function jsonSerialize(): mixed
+    public function withCustomObjects(CustomObjects $customObjects): self
+    {
+        $this->customObjects = $customObjects;
+        return $this;
+    }
+
+    public function withExtensions(CustomObjects $customObjects): self
+    {
+        return $this->withCustomObjects($customObjects);
+    }
+
+    private function url(): string
+    {
+        return (string) $this->url;
+    }
+
+    private function title(): string
+    {
+        return (string) $this->title;
+    }
+
+    private function mimeType(): string
+    {
+        return (string) $this->mimeType;
+    }
+
+    /** JsonSerializable **/
+    public function jsonSerialize(): StdClass
     {
         $obj = new StdClass();
-        $obj->url = $this->url;
-        $obj->mime_type = $this->mimeType;
+        $obj->url = $this->url();
+        $obj->mime_type = $this->mimeType();
 
-        if (strlen($this->title) > 0) {
-            $obj->title = $this->title;
+        if (strlen($this->title()) > 0) {
+            $obj->title = $this->title();
         }
 
         if ($this->size > 0) {
@@ -43,6 +76,15 @@ class Attachment implements JsonSerializable
 
         if ($this->duration > 0) {
             $obj->duration_in_seconds = $this->duration;
+        }
+
+        if (isset($this->customObjects)) {
+            foreach ($this->customObjects as $customObject) {
+                if (is_a($customObject, CustomObject::class)) {
+                    $name = $customObject->name();
+                    $obj->{$name} = $customObject->object();
+                }
+            }
         }
 
         return $obj;

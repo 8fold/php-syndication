@@ -5,21 +5,21 @@ namespace Eightfold\Syndication\Rss;
 
 use Stringable;
 
-use Eightfold\XMLBuilder\Contracts\Buildable;
-
 use Eightfold\XMLBuilder\Element;
 
-use Eightfold\Syndication\Rss\Enums\CloudProtocol;
-
-class Cloud implements Buildable
+class Cloud implements Stringable
 {
+    public const XMLRPC   = 'xml-rpc';
+    public const SOAP     = 'soap';
+    public const HTTPPOST = 'http-post';
+
     /**
      * @param string $domain The domain name or IP address of the cloud.
      * @param string $port The TCP port that the cloud is running on.
      * @param string $path The location of its responder.
      * @param string $registerProcedure The name of the procedure to call to
      *        request notification.
-     * @param CloudProtocol $protocol Is xml-rpc, soap, or
+     * @param string $protocol Is xml-rpc, soap, or
      *        http-post (case-sensitive), indicating which protocol is to be used.
      *
      * @return self
@@ -29,7 +29,7 @@ class Cloud implements Buildable
         string $port,
         string $path,
         string $registerProcedure,
-        CloudProtocol $protocol
+        string $protocol
     ): self {
         return new self($domain, $port, $path, $registerProcedure, $protocol);
     }
@@ -39,13 +39,8 @@ class Cloud implements Buildable
         readonly private string $port,
         readonly private string $path,
         readonly private string $registerProcedure,
-        readonly private CloudProtocol $protocol
+        readonly private string $protocol
     ) {
-    }
-
-    public function build(): string
-    {
-        return strval($this);
     }
 
     public function __toString(): string
@@ -55,7 +50,7 @@ class Cloud implements Buildable
             'port ' . $this->port,
             'path ' . $this->path,
             'registerProcedure ' . $this->registerProcedure,
-            'protocol ' . $this->protocol->value
+            'protocol ' . $this->protocol
         );
     }
 }

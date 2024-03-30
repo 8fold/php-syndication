@@ -5,11 +5,9 @@ namespace Eightfold\Syndication\Rss;
 
 use Stringable;
 
-use Eightfold\XMLBuilder\Contracts\Buildable;
-
 use Eightfold\XMLBuilder\Element;
 
-class Guid implements Buildable
+class Guid implements Stringable
 {
     public static function create(string $guid, bool $isPermaLink = false): self
     {
@@ -20,11 +18,6 @@ class Guid implements Buildable
         readonly private string $guid,
         readonly private bool $isPermaLink = false
     ) {
-    }
-
-    public function build(): string
-    {
-        return strval($this);
     }
 
     public function __toString(): string
