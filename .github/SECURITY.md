@@ -1,3 +1,7 @@
+<!--
+Maintained and synced from 8fold/repo-skeleton, do not update outside of the 8fold/repo-skeleton repository
+-->
+
 # Security Policy
 
 The only completely secure system is the one that doesn't exist in the first place. Having said that, we take security seriously.
