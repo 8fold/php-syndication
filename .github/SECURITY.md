@@ -8,4 +8,6 @@ The only completely secure system is the one that doesn't exist in the first pla
 
 ## Reporting a Vulnerability
 
-Please disclose potential security issues by email to [joshbruce](https://github.com/joshbruce). We will provide an initial assessment of security reports within 72 hours and should apply patches within 2 weeks (also, feel free to contribute a fix for the issue).
+Please disclose potential security vulnerabilities privately through GitHub by navigating to the **Security** tab of this repository and clicking **"Report a vulnerability"**.
+
+Alternatively, you can report issues by email to [joshbruce](https://github.com/joshbruce). We will provide an initial assessment of security reports within 72 hours and aim to apply patches within 2 weeks (also, feel free to contribute a fix for the issue).
