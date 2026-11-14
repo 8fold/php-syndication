@@ -1,13 +1,32 @@
 ---
 name: Feature request
-about: 8fold Laravel Provider doesn't do this thing and I think it should
+about: A capability is missing or could be improved
 ---
 
-**Describe the feature**
-A clear and concise description of what you would like.
+<!--
+Maintained and synced from 8fold/repo-skeleton, do not update outside of the 8fold/repo-skeleton repository
+-->
 
-**Why is this feature necessary?**
-A clear and concise description of why.
+## Requested capability
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+<!-- Describe the proposed outcome, not just an implementation. -->
+
+## Need and impact
+
+<!-- What becomes possible or less costly, and for whom? -->
+
+## Alternatives
+
+<!-- Existing ways to achieve the outcome and their trade-offs. -->
+
+## Policy status
+
+<!-- Is this an outside request, a recorded maintainer policy proposal/adoption, or an external requirement? Link the evidence; authorship alone does not establish policy. N/A if not yet established. -->
+
+## Acceptance criteria
+
+<!-- Observable outcomes that establish success. -->
+
+## Related and out of scope
+
+<!-- Dependencies, related issues, and work deliberately excluded. -->
