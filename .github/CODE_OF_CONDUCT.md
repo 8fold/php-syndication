@@ -1,3 +1,7 @@
+<!--
+Maintained and synced from 8fold/repo-skeleton, do not update outside of the 8fold/repo-skeleton repository
+-->
+
 # Contributor Covenant Code of Conduct
 
 ## Our Pledge
