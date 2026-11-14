@@ -1,10 +1,24 @@
+<!--
+Maintained and synced from 8fold/repo-skeleton, do not update outside of the 8fold/repo-skeleton repository
+-->
+
 # Contributing
 
 Contributions are **welcome** and will be **credited**. We accept contributions via pull requests to the GitHub project repository.
 
+## Commit & PR discipline
+
+- **Single-Classification Commits:** A single commit MUST NOT mix Refactoring and Re-engineering changes.
+- **Conventional Commits Syntax:**
+  - `refactor:` Internal restructuring without behavior changes (**Refactoring**).
+  - `feat:`, `fix:`, `perf:` Observable capabilities or contract updates (**Re-engineering**).
+  - `docs:`, `test:`, `chore:` Maintenance, verification, or documentation.
+  - `BREAKING CHANGE:` footer for breaking contract changes.
+- **PR Template Compliance:** Inspect [the pull request template](PULL_REQUEST_TEMPLATE.md), complete all required sections, and classify each meaningful change in the PR body.
+
 ## Priorities
 
-We leverage GitHub's labeling system to inform prioritization of issues. The higher the number, the higher priority.
+We leverage GitHub's labeling system to inform prioritization of issues; see [issue triage](../docs/issue-triage.md) for details.
 
 Security and accessibility are always the highest priority within the applicable scope of the project. Therefore, some packages are low-level and intended for developers and give the flexibility to them to surround the package within a security layer.
 
