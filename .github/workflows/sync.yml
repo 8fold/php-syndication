@@ -1,0 +1,20 @@
+# Maintained and synced from 8fold/repo-skeleton, do not update outside of the
+# 8fold/repo-skeleton repository - syncing prior to private repo solution
+name: Sync All Governance Assets
+
+on:
+  schedule:
+    - cron: '0 0 1 */3 *'
+  workflow_dispatch:
+
+jobs:
+  sync-triage-and-labels:
+    name: Sync Triage Docs and Labels
+    uses: 8fold/repo-skeleton/.github/workflows/sync-triage.yml@main
+    secrets: inherit
+
+  sync-templates:
+    name: Sync Default PR and Issue Templates
+    needs: sync-triage-and-labels
+    uses: 8fold/repo-skeleton/.github/workflows/sync-templates.yml@main
+    secrets: inherit
