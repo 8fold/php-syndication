@@ -1,14 +1,18 @@
+<!--
+Maintained and synced from 8fold/repo-skeleton, do not update outside of the 8fold/repo-skeleton repository
+-->
+
 # Versioning
 
 All packages follow [Semantic Versioning 2.0](https://semver.org/) as closely as possible.
 
-If there is a standard release schedule it will be noted in the read-me. For the most part, we prefer releasing on demand over a recurring date.
+If there is a standard release schedule or details beyond this overview they will be noted in the [README](../README.md). For the most part, we prefer releasing on demand over a recurring date.
 
 How we define the parts of the semantic version notation of: MAJOR.MINOR.PATCH
 
 **Major:** We knowingly changed the way you interact with the package. (Chances are this means we needed to modify the way an existing test works in order to pass.)
 
-**Minor:** We added functionality in a way that should not impact the way you already interact with the package; however, we may have introduce new ways. (Chances are we had to write new tests to cover the change.)
+**Minor:** We added functionality in a way that should not impact the way you already interact with the package; however, we may have introduced new ways. (Chances are we had to write new tests to cover the change.)
 
 **Patch:** One or more bits of functionality were shown not to work as intended and we fixed them without effecting current behavior. (Chances are we wrote new tests to cover the discovered defect and the fix didn’t alter how you interact with the package.)
 
