@@ -1,6 +1,7 @@
 <!--
 Maintained and synced from 8fold/repo-skeleton, do not update outside of the 8fold/repo-skeleton repository
 -->
+
 # Issue Triage Protocol
 
 This document defines the canonical operational procedure for issue triage, qualitative impact labeling, backlog auditing, and next-increment recommendations.
@@ -9,7 +10,7 @@ This document defines the canonical operational procedure for issue triage, qual
 
 ## Qualitative Impact Categories
 
-Labels route maintainer and agent attention based on qualitative impact (ordered from highest to lowest priority). Multiple overlapping categories may apply to a single issue:
+Labels route maintainer and agent attention based on qualitative impact (ordered from highest to lowest priority). Multiple categories may apply to a single issue:
 
 1. **`security/accessibility`:** Potential security vulnerabilities or accessibility defects. Use the private security reporting route for zero-day vulnerabilities.
     - Clarify that public issues flagging potential security bugs should be converted or redirected to **GitHub Private Security Advisories** (or private maintainer channels) prior to public triage.
