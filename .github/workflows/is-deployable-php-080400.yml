@@ -1,0 +1,38 @@
+# Maintained in 8fold/php-repo-skeleton; do not edit outside of 8fold/php-repo-skeleton
+name: Is deployable on PHP 8.4
+permissions:
+  contents: read
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup PHP Action
+        # Pin to 2.4.0
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962
+        with:
+          php-version: '8.4'
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Run style check
+        run: composer run check:style
+
+      - name: Run static analyzer
+        run: composer run check:analysis
+
+      - name: Run tests
+        run: composer run check:test
