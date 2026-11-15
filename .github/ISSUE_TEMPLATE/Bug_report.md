@@ -1,16 +1,10 @@
 ---
-name: Bug report
+name: Broken/Annoying
 about: Promised behavior does not match the observed experience
 ---
 
 <!--
-Maintained and synced from 8fold/repo-skeleton, do not update outside of the
-8fold/repo-skeleton repository
--->
-
-<!--
-Do not disclose potential vulnerabilities here.
-Follow .github/security.md. Adapt environment questions for the affected project.
+Maintained and synced from 8fold/.github, do not update outside of the 8fold/.github repository
 -->
 
 ## Observed behavior
