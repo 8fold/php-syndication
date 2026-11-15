@@ -4,7 +4,7 @@ about: A capability is missing or could be improved
 ---
 
 <!--
-Maintained and synced from 8fold/repo-skeleton, do not update outside of the 8fold/repo-skeleton repository
+Maintained and synced from 8fold/.github, do not update outside of the 8fold/.github repository
 -->
 
 ## Requested capability
