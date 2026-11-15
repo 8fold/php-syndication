@@ -4,7 +4,7 @@ about: Propose retiring or replacing a supported capability
 ---
 
 <!--
-Maintained and synced from 8fold/repo-skeleton, do not update outside of the 8fold/repo-skeleton repository
+Maintained and synced from 8fold/.github, do not update outside of the 8fold/.github repository
 -->
 
 ## Capability
