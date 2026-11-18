@@ -1,8 +1,25 @@
+# Maintained in 8fold/php-repo-skeleton; do not edit directly
+
+includes:
+    - vendor/spaze/phpstan-disallowed-calls/extension.neon
+    - vendor/spaze/phpstan-disallowed-calls/disallowed-loose-calls.neon
+    - vendor/spaze/phpstan-disallowed-calls/disallowed-insecure-calls.neon
+    - vendor/spaze/phpstan-disallowed-calls/disallowed-non-timing-safe-calls.neon
+    - vendor/spaze/phpstan-disallowed-calls/disallowed-dangerous-calls.neon
+    - vendor/spaze/phpstan-disallowed-calls/disallowed-execution-calls.neon
+
 parameters:
-	level: 9
-	paths:
-		- src
-	checkGenericClassInNonGenericObjectType: false
-	ignoreErrors:
-		- '#Call to an undefined static method Eightfold\\XMLBuilder\\Element::(.*)#'
-		- '#(.*)::\$collection type has no value type specified in iterable type array.#'
+    level: 10
+    phpVersion: 80500
+    paths:
+        - bin
+        - src
+        - tests
+    excludePaths:
+        - */vendor/*
+    checkClassCaseSensitivity: true
+    checkInternalClassCaseSensitivity: true
+    checkMissingOverridePropertyAttribute: true
+    reportNonIntStringArrayKey: true
+    strictRules:
+        allRules: true

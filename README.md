@@ -72,4 +72,8 @@ When possible, we will render elements and properties in the order they appear i
 
 ## Other
 
-{links or descriptions or license, versioning, and governance}
+- [Code of Conduct](https://github.com/8fold/.github/blob/main/CODE_OF_CONDUCT.md)
+- [Contributing](https://github.com/8fold/.github/blob/main/CONTRIBUTING.md)
+- [Governance](https://github.com/8fold/.github/blob/main/GOVERNANCE.md)
+- [Versioning](https://github.com/8fold/.github/blob/main/docs/versioning-base.md)
+- [Security](https://github.com/8fold/.github/blob/main/SECURITY.md)

@@ -1,0 +1,20 @@
+# .copilotignore - Local content exclusion patterns for GitHub Copilot
+# Prevents Copilot from indexing sensitive environment credentials and keys.
+
+# Environment configuration & secrets
+config/.env*
+.env
+.env.*
+!.env-example
+!.env-ci
+
+# Keys & Certificates
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+
+# Local caches & graph cost data
+graphify-out/cost.json
+graphify-out/cache/

@@ -1,24 +1,30 @@
 <?xml version="1.0"?>
-<ruleset name="8fold PSR12">
-	<description>PHP-FIG PSR-12 standards with modifications to: control structure (empty space before closing brace).</description>
+<ruleset name="">
+    <description><!-- description --></description>
 
-	<file>src</file>
+    <!-- Display progress and enable colors -->
+    <arg value="p"/>
+    <arg name="colors"/>
+    <arg name="extensions" value="php"/>
 
-	<exclude-pattern>*/src/assets/*/**$</exclude-pattern>
+    <!-- Target Directories -->
+    <file>bin</file>
+    <file>src</file>
+    <file>tests</file>
 
-	<arg name="colors" />
+    <!-- PSR-12 Base Standard -->
+    <rule ref="PSR12">
+        <!-- 8fold prefers one empty line before the closing of most control structures -->
+        <exclude name="Squiz.WhiteSpace.ControlStructureSpacing.SpacingBeforeClose"/>
+        <!-- 8fold separates `use` clauses, all other PSR12 whitespace rules should apply -->
+        <exclude name="PSR12.Files.FileHeader"/>
+    </rule>
 
- 	<rule ref="PSR12">
- 		<!-- 8fold prefers one empty before the closing of control strcuctures
- 			in most cases -->
- 		<exclude name="Squiz.WhiteSpace.ControlStructureSpacing.SpacingBeforeClose"/>
- 		<!-- We separate `use` clauses, all other PSR12 whitespace rules should apply -->
- 		<exclude name="PSR12.Files.FileHeader"/>
- 	</rule>
-	<rule ref="Generic.Files.LineLength">
-		<properties>
-			<property phpcs-only="true" name="lineLimit" value="100"/>
-			<property phpcbf-only="true" name="lineLimit" value="120"/>
-		</properties>
-	</rule>
+    <!-- snake_case test method names -->
+    <rule ref="PSR1.Methods.CamelCapsMethodName">
+        <exclude-pattern>*/tests/*</exclude-pattern>
+    </rule>
+
+    <!-- Exclusions -->
+    <exclude-pattern>*/vendor/*</exclude-pattern>
 </ruleset>
