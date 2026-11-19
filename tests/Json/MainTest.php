@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Eightfold\XMLBuilder\Tests\Extensions\Syndication\Json;
+namespace Eightfold\XmlBuilder\Tests\Extensions\Syndication\Json;
 
 use PHPUnit\Framework\TestCase;
 
@@ -22,14 +22,11 @@ use Eightfold\Syndication\Json\CustomObjects;
 use Eightfold\Syndication\Json\CustomObject;
 
 use DateTime;
-use StdClass;
+use stdClass;
 
 class MainTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function can_output_sample_01(): void
+    public function test_can_output_sample_01(): void
     {
         $file = __DIR__ . '/samples/01.json';
 
@@ -60,16 +57,13 @@ class MainTest extends TestCase
             JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT
         );
 
-        $this->assertSame(
+        parent::assertSame(
             $expected,
             $result . "\n"
         );
     }
 
-    /**
-     * @test
-     */
-    public function can_output_sample_02(): void
+    public function test_can_output_sample_02(): void
     {
         $file = __DIR__ . '/samples/02.json';
 
@@ -82,10 +76,10 @@ class MainTest extends TestCase
             items: Items::create(
                 Item::create(
                     id: 'http://therecord.co/chris-parrish',
-                    content: 'Chris has worked at Adobe and as a founder of Rogue Sheep, which won an Apple Design Award for Postage. Chris’s new company is Aged & Distilled with Guy English — which shipped Napkin, a Mac app for visual collaboration. Chris is also the co-host of The Record. He lives on Bainbridge Island, a quick ferry ride from Seattle.'
+                    content: 'Chris has worked at Adobe and as a founder of Rogue Sheep, which won an Apple Design Award for Postage. Chris’s new company is Aged & Distilled with Guy English — which shipped Napkin, a Mac app for visual collaboration. Chris is also the co-host of The Record. He lives on Bainbridge Island, a quick ferry ride from Seattle.' // phpcs:ignore
                 )->withExtraContent(
                     ContentHtml::create(
-                        'Chris has worked at <a href="http://adobe.com/">Adobe</a> and as a founder of Rogue Sheep, which won an Apple Design Award for Postage. Chris’s new company is Aged & Distilled with Guy English — which shipped <a href="http://aged-and-distilled.com/napkin/">Napkin</a>, a Mac app for visual collaboration. Chris is also the co-host of The Record. He lives on <a href="http://www.ci.bainbridge-isl.wa.us/">Bainbridge Island</a>, a quick ferry ride from Seattle.'
+                        'Chris has worked at <a href="http://adobe.com/">Adobe</a> and as a founder of Rogue Sheep, which won an Apple Design Award for Postage. Chris’s new company is Aged & Distilled with Guy English — which shipped <a href="http://aged-and-distilled.com/napkin/">Napkin</a>, a Mac app for visual collaboration. Chris is also the co-host of The Record. He lives on <a href="http://www.ci.bainbridge-isl.wa.us/">Bainbridge Island</a>, a quick ferry ride from Seattle.' // phpcs:ignore
                     )
                 )->withUrl(
                     'http://therecord.co/chris-parrish'
@@ -110,7 +104,7 @@ class MainTest extends TestCase
                 )
             )
         )->withUserComment(
-            'This is a podcast feed. You can add this feed to your podcast client using the following URL: http://therecord.co/feed.json'
+            'This is a podcast feed. You can add this feed to your podcast client using the following URL: http://therecord.co/feed.json' // phpcs:ignore
         );
 
         $result = json_encode(
@@ -118,16 +112,13 @@ class MainTest extends TestCase
             JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE
         );
 
-        $this->assertSame(
+        parent::assertSame(
             $expected,
             $result . "\n"
         );
     }
 
-    /**
-     * @test
-     */
-    public function can_output_sample_03(): void
+    public function test_can_output_sample_03(): void
     {
         $file = __DIR__ . '/samples/03.json';
 
@@ -160,7 +151,7 @@ class MainTest extends TestCase
                 )
             )
         )->withUserComment(
-            'This is a microblog feed. You can add this to your feed reader using the following URL: https://example.org/feed.json'
+            'This is a microblog feed. You can add this to your feed reader using the following URL: https://example.org/feed.json' // phpcs:ignore
         );
 
         $result = json_encode(
@@ -168,22 +159,19 @@ class MainTest extends TestCase
             JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE
         );
 
-        $this->assertSame(
+        parent::assertSame(
             $expected,
             $result . "\n"
         );
     }
 
-    /**
-     * @test
-     */
-    public function can_handle_extensions(): void
+    public function test_can_handle_extensions(): void
     {
         $file = __DIR__ . '/samples/extended.json';
 
         $expected = file_get_contents($file);
 
-        $customObject = new StdClass();
+        $customObject = new stdClass();
         $customObject->about = 'https://blueshed-podcasts.com/json-feed-extension-docs';
         $customObject->explicit = false;
         $customObject->copyright = '1948 by George Orwell';
@@ -213,7 +201,7 @@ class MainTest extends TestCase
             JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE
         );
 
-        $this->assertSame(
+        parent::assertSame(
             $expected,
             $result . "\n"
         );

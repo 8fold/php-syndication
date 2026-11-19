@@ -3,15 +3,20 @@ declare(strict_types=1);
 
 namespace Eightfold\Syndication\Atom;
 
-use Traversable;
 use Iterator;
 use Countable;
 use Stringable;
 
 use Eightfold\Syndication\Atom\Link;
 
-class Links implements Traversable, Iterator, Countable, Stringable
+/**
+ * @implements Iterator<int, Link>
+ */
+class Links implements Iterator, Countable, Stringable
 {
+    /**
+     * @var list<Link>
+     */
     private array $collection = [];
 
     private int $position = 0;
@@ -23,7 +28,7 @@ class Links implements Traversable, Iterator, Countable, Stringable
 
     final private function __construct(Link ...$links)
     {
-        $this->collection = $links;
+        $this->collection = array_values($links);
     }
 
     /** Stringable **/
@@ -39,7 +44,7 @@ class Links implements Traversable, Iterator, Countable, Stringable
     /**
      * JsonSerializable
      *
-     * @return array<string, string>
+     * @return list<Link>
      **/
     public function jsonSerialize(): array
     {
@@ -63,7 +68,7 @@ class Links implements Traversable, Iterator, Countable, Stringable
         $this->position = 0;
     }
 
-    public function key(): int|string
+    public function key(): int
     {
         return $this->position;
     }

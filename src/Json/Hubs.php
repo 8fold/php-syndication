@@ -3,15 +3,20 @@ declare(strict_types=1);
 
 namespace Eightfold\Syndication\Json;
 
-use Traversable;
 use Iterator;
 use Countable;
 use JsonSerializable;
 
 use Eightfold\Syndication\Json\Hub;
 
-class Hubs implements Traversable, Iterator, Countable, JsonSerializable
+/**
+ * @implements Iterator<int, Hub>
+ */
+class Hubs implements Iterator, Countable, JsonSerializable
 {
+    /**
+     * @var list<Hub>
+     */
     private array $collection = [];
 
     private int $position = 0;
@@ -23,13 +28,13 @@ class Hubs implements Traversable, Iterator, Countable, JsonSerializable
 
     final private function __construct(Hub ...$hubs)
     {
-        $this->collection = $hubs;
+        $this->collection = array_values($hubs);
     }
 
     /**
      * JsonSerializable
      *
-     * @return array<string, string>
+     * @return list<Hub>
      **/
     public function jsonSerialize(): array
     {
@@ -53,7 +58,7 @@ class Hubs implements Traversable, Iterator, Countable, JsonSerializable
         $this->position = 0;
     }
 
-    public function key(): int|string
+    public function key(): int
     {
         return $this->position;
     }

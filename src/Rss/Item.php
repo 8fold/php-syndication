@@ -15,7 +15,7 @@ use Stringable;
 
 use DateTime;
 
-use Eightfold\XMLBuilder\Element;
+use Eightfold\XmlBuilder\Element;
 
 use Eightfold\Syndication\Rss\Enclosure;
 use Eightfold\Syndication\Rss\Guid;
@@ -89,8 +89,11 @@ class Item implements Stringable
         return $this;
     }
 
-    public function withPubDate(DateTime $date): self
+    public function withPubDate(DateTime|false $date): self
     {
+        if ($date === false) {
+            $date = new DateTime();
+        }
         $this->pubDate = $date;
         return $this;
     }

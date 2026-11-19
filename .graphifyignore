@@ -1,0 +1,20 @@
+# Dependencies & Build Directories
+
+node_modules/
+vendor/
+dist/
+target/
+build/
+
+# Exclude non-code documentation and media from LLM semantic extraction
+# to enforce zero-token AST code parsing
+
+graphify-out/
+docs/
+*.md
+*.pdf
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg

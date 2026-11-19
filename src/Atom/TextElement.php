@@ -5,7 +5,7 @@ namespace Eightfold\Syndication\Atom;
 
 use Stringable;
 
-use Eightfold\XMLBuilder\Element;
+use Eightfold\XmlBuilder\Element;
 
 use Eightfold\Syndication\Atom\TextTypes;
 
@@ -28,7 +28,7 @@ class TextElement implements Stringable
 
     public function __toString(): string
     {
-        $e = Element::{$this->element}($this->content);
+        $e = Element::create($this->element, $this->content);
         if ($this->type === TextTypes::TEXT) {
             return (string) $e;
         }

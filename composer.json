@@ -1,8 +1,10 @@
 {
   "name": "8fold/php-syndication",
-  "type": "library",
-  "description": "A library for generating RSS and Atom feeds (XML)",
+  "type": "package",
+  "description": "A package for generating RSS and Atom feeds (XML)",
   "license": "MIT",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
   "authors": [
     {
       "name": "Josh Bruce",
@@ -12,15 +14,6 @@
     }
   ],
   "support": {
-  },
-  "require": {
-    "php": "^8.1 | ^8.2",
-    "8fold/php-xml-builder": "^2.0"
-  },
-  "require-dev": {
-    "phpstan/phpstan": "^1.10",
-    "phpunit/phpunit": "^10.0",
-    "squizlabs/php_codesniffer": "^3.7"
   },
   "autoload": {
     "psr-4": {
@@ -32,25 +25,66 @@
       "Eightfold\\Syndication\\Tests\\": "./tests"
     }
   },
-  "config": {
-    "preferred-install": "dist"
+  "require": {
+    "php": "^8.1",
+    "8fold/php-xml-builder": "^4.0"
   },
-  "prefer-stable": true,
+  "require-dev": {
+    "symfony/process": "^5.4 || ^6.0 || ^7.0 || ^8.0",
+
+    "squizlabs/php_codesniffer": "^3.6 || ^4.0",
+    "dealerdirect/phpcodesniffer-composer-installer": "^1.2",
+
+    "phpstan/phpstan": "^2.0.0",
+    "phpstan/phpstan-strict-rules": "^2.1",
+    "spaze/phpstan-disallowed-calls": "^4.15",
+    "phpstan/extension-installer": "*",
+
+    "phpunit/phpunit": "^9.5.21 || ^10.5.9 || ^11.0.0 || ^12.0.0 || ^13.0.0"
+  },
   "scripts": {
     "prod": "@production",
     "production": [
-      "composer dumpautoload -o",
-      "@style",
-      "@stan",
-      "@test"
+      "@autoload:prod",
+      "@check"
     ],
-    "deploy": [
-      "@production",
-      "@optimize-autoload"
+
+    "local": [
+      "@autoload:local",
+      "@check"
     ],
-    "style": "./vendor/bin/phpcs --standard=phpcs.xml",
-    "stan": "./vendor/bin/phpstan analyze",
-    "test": "./vendor/bin/phpunit",
-    "optimize-autoload": "composer dumpautoload --no-dev --classmap-authoritative"
+
+    "check": [
+      "@check:dependencies",
+      "@check:tabs",
+      "@check:style",
+      "@check:analysis",
+      "@check:test"
+    ],
+    "check:dependencies": "composer validate --no-check-publish",
+    "check:tabs": "php ./bin/check-tabs.php",
+    "check:style": "./vendor/bin/phpcs --standard=phpcs.xml",
+    "check:analysis": "./vendor/bin/phpstan analyze",
+    "check:test": "./vendor/bin/phpunit",
+    "check:test:ci": "./vendor/bin/phpunit --no-coverage --no-configuration --bootstrap vendor/autoload.php tests/",
+
+    "fix:style": "./vendor/bin/phpcbf --standard=phpcs.xml",
+
+    "autoload:prod": "composer dumpautoload --no-dev --classmap-authoritative",
+    "autoload:local": "composer dumpautoload -o"
+  },
+  "extra": {
+    "phpstan/extension-installer": {
+      "ignore": [
+        "spaze/phpstan-disallowed-calls"
+      ]
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "phpstan/extension-installer": true
+    },
+    "sort-packages": true
   }
 }

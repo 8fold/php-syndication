@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Eightfold\Syndication\Json;
 
-use StdClass;
+use stdClass;
 use Stringable;
 use JsonSerializable;
 
@@ -60,9 +60,9 @@ class Attachment implements JsonSerializable
     }
 
     /** JsonSerializable **/
-    public function jsonSerialize(): StdClass
+    public function jsonSerialize(): stdClass
     {
-        $obj = new StdClass();
+        $obj = new stdClass();
         $obj->url = $this->url();
         $obj->mime_type = $this->mimeType();
 
@@ -80,10 +80,8 @@ class Attachment implements JsonSerializable
 
         if (isset($this->customObjects)) {
             foreach ($this->customObjects as $customObject) {
-                if (is_a($customObject, CustomObject::class)) {
-                    $name = $customObject->name();
-                    $obj->{$name} = $customObject->object();
-                }
+                $name = $customObject->name();
+                $obj->{$name} = $customObject->object();
             }
         }
 

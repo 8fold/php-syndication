@@ -1,17 +1,16 @@
 root = true
 
+; Spaces everywhere; `composer check:tabs` enforces this (#114).
 [*]
-indent_style = tab
+indent_style = space
 indent_size = 4
 end_of_line = lf
 charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
 
-[*.{ym,yml,yaml,js,json,scss}]
-indent_style = space
+[*.{yml,yaml,js,json,scss,css}]
 indent_size = 2
 
-[*.{php,md}]
-indent_style = space
-indent_size = 4
+[{.env-local,.env-example}]
+indent_size = 2

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Eightfold\Syndication\Json;
 
-use StdClass;
+use stdClass;
 use Stringable;
 use JsonSerializable;
 
@@ -26,20 +26,11 @@ class Hub implements JsonSerializable
     }
 
     /** JsonSerializable **/
-    public function jsonSerialize(): StdClass
+    public function jsonSerialize(): stdClass
     {
-        $obj = new StdClass();
+        $obj = new stdClass();
         $obj->type = $this->type;
         $obj->url = $this->url;
-
-        if (isset($this->customObjects)) {
-            foreach ($this->customObjects as $customObject) {
-                if (is_a($customObject, CustomObject::class)) {
-                    $name = $customObject->name();
-                    $obj->{$name} = $customObject->object();
-                }
-            }
-        }
 
         return $obj;
     }

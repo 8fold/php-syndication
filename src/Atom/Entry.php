@@ -7,9 +7,7 @@ use Stringable;
 
 use DateTime;
 
-// use Eightfold\XMLBuilder\Contracts\Buildable;
-
-use Eightfold\XMLBuilder\Element;
+use Eightfold\XmlBuilder\Element;
 
 use Eightfold\Syndication\Atom\Title;
 use Eightfold\Syndication\Atom\Content;
@@ -36,13 +34,16 @@ class Entry implements Stringable
 
     public static function create(
         Title $title,
-        DateTime $updated,
+        DateTime|false $updated,
         string $id,
         ?Authors $authors = null,
         ?Content $content = null,
         ?Links $links = null,
         ?Summary $summary = null
     ): self {
+        if ($updated === false) {
+            $updated = new DateTime();
+        }
         return new self(
             title: $title,
             updated: $updated,
@@ -106,22 +107,16 @@ class Entry implements Stringable
             return true;
         }
 
-        if ($this->content === null and $this->links === null) {
+        if ($this->links === null) {
             return false;
         }
 
-        if ($this->links !== null) {
-            foreach ($this->links as $link) {
-                if (
-                    is_object($link) and
-                    is_a($link, Link::class) and
-                    $link->isAlternate()
-                ) {
-                    return true;
-                }
+        foreach ($this->links as $link) {
+            if ($link->isAlternate()) {
+                return true;
+
             }
         }
-
         return false;
     }
 

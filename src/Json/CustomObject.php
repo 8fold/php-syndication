@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Eightfold\Syndication\Json;
 
-use StdClass;
+use stdClass;
 use Stringable;
 use JsonSerializable;
 
@@ -11,14 +11,14 @@ class CustomObject
 {
     public static function create(
         string|Stringable $name,
-        StdClass $object
+        stdClass $object
     ): self {
         return new self($name, $object);
     }
 
     final private function __construct(
         readonly private string|Stringable $name,
-        readonly private StdClass $object
+        readonly private stdClass $object
     ) {
     }
 
@@ -35,15 +35,15 @@ class CustomObject
         return '_' . $name;
     }
 
-    public function object(): StdClass
+    public function object(): stdClass
     {
         return $this->object;
     }
 
     /** JsonSerializable **/
-    public function jsonSerialize(): mixed
+    public function jsonSerialize(): stdClass
     {
-        $obj = new StdClass();
+        $obj = new stdClass();
 
         if (strlen($this->name()) === 0) {
             return $obj;

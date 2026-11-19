@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Eightfold\Syndication\Json;
 
-use StdClass;
+use stdClass;
 use Stringable;
 use JsonSerializable;
 
@@ -56,9 +56,9 @@ class Author implements JsonSerializable
     }
 
     /** JsonSerializable **/
-    public function jsonSerialize(): StdClass
+    public function jsonSerialize(): stdClass
     {
-        $obj = new StdClass();
+        $obj = new stdClass();
 
         if (strlen($this->name()) > 0) {
             $obj->name = $this->name();
@@ -69,15 +69,13 @@ class Author implements JsonSerializable
         }
 
         if (strlen($this->avatar()) > 0) {
-            $obj->avatar = (string) $this->avatar();
+            $obj->avatar = $this->avatar();
         }
 
         if (isset($this->customObjects)) {
             foreach ($this->customObjects as $customObject) {
-                if (is_a($customObject, CustomObject::class)) {
-                    $name = $customObject->name();
-                    $obj->{$name} = $customObject->object();
-                }
+                $name = $customObject->name();
+                $obj->{$name} = $customObject->object();
             }
         }
 
