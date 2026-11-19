@@ -7,7 +7,7 @@ use Stringable;
 
 use DateTime;
 
-use Eightfold\XMLBuilder\Element;
+use Eightfold\XmlBuilder\Element;
 
 class Category implements Stringable
 {

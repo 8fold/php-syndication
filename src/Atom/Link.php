@@ -5,7 +5,7 @@ namespace Eightfold\Syndication\Atom;
 
 use Stringable;
 
-use Eightfold\XMLBuilder\Element;
+use Eightfold\XmlBuilder\Element;
 
 class Link implements Stringable
 {

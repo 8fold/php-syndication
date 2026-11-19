@@ -5,7 +5,7 @@ namespace Eightfold\Syndication\Rss;
 
 use Stringable;
 
-use Eightfold\XMLBuilder\Element;
+use Eightfold\XmlBuilder\Element;
 
 class Source implements Stringable
 {

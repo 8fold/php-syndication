@@ -3,15 +3,21 @@ declare(strict_types=1);
 
 namespace Eightfold\Syndication\Rss;
 
-use Traversable;
 use Iterator;
 use Countable;
 use Stringable;
 
 use Eightfold\Syndication\Rss\Item;
 
-class Items implements Traversable, Iterator, Countable, Stringable
+/**
+ * @implements Iterator<int, Item>
+ */
+class Items implements Iterator, Countable, Stringable
 {
+    /**
+     *
+     * @var list<Item>
+     */
     private array $collection = [];
 
     private int $position = 0;
@@ -23,7 +29,7 @@ class Items implements Traversable, Iterator, Countable, Stringable
 
     final private function __construct(Item ...$items)
     {
-        $this->collection = $items;
+        $this->collection = array_values($items);
     }
 
     /** Stringable **/
@@ -39,7 +45,7 @@ class Items implements Traversable, Iterator, Countable, Stringable
     /**
      * JsonSerializable
      *
-     * @return array<string, string>
+     * @return list<Item>
      */
     public function jsonSerialize(): array
     {
@@ -63,7 +69,7 @@ class Items implements Traversable, Iterator, Countable, Stringable
         $this->position = 0;
     }
 
-    public function key(): int|string
+    public function key(): int
     {
         return $this->position;
     }

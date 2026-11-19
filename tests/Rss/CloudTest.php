@@ -9,12 +9,11 @@ use Eightfold\Syndication\Rss\Cloud;
 
 class CloudTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function compound(): void
+    public function test_compound(): void
     {
-        $expected = '<cloud domain="radio.xmlstoragesystem.com" port="80" path="/RPC2" registerProcedure="xmlStorageSystem.rssPleaseNotify" protocol="xml-rpc" />';
+        // phpcs:disable
+        $expected = '<cloud domain="radio.xmlstoragesystem.com" path="/RPC2" port="80" protocol="xml-rpc" registerProcedure="xmlStorageSystem.rssPleaseNotify" />';
+        // phpcs:enable
 
         $result = (string) Cloud::create(
             'radio.xmlstoragesystem.com',
@@ -24,7 +23,7 @@ class CloudTest extends TestCase
             Cloud::XMLRPC
         );
 
-        $this->assertSame(
+        parent::assertSame(
             $expected,
             $result
         );

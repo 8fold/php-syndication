@@ -4,34 +4,46 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "39b25ab252fa1e270ab5d00e99fe6773",
+    "content-hash": "e356d279480856c24c3a857e846eb304",
     "packages": [
         {
             "name": "8fold/php-xml-builder",
-            "version": "2.0.0",
+            "version": "4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/8fold/php-xml-builder.git",
-                "reference": "a1feffe8d91e3ed3bf532c9b2ba13c5a8c2abfcb"
+                "reference": "8ed21a1776189ce0d63628131ca0e6fc3771a3c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/8fold/php-xml-builder/zipball/a1feffe8d91e3ed3bf532c9b2ba13c5a8c2abfcb",
-                "reference": "a1feffe8d91e3ed3bf532c9b2ba13c5a8c2abfcb",
+                "url": "https://api.github.com/repos/8fold/php-xml-builder/zipball/8ed21a1776189ce0d63628131ca0e6fc3771a3c4",
+                "reference": "8ed21a1776189ce0d63628131ca0e6fc3771a3c4",
                 "shasum": ""
             },
             "require": {
                 "php": "^8.0"
             },
             "require-dev": {
-                "phpstan/phpstan": "^1.9",
-                "phpunit/phpunit": "^9.5",
-                "squizlabs/php_codesniffer": "^3.7"
+                "dealerdirect/phpcodesniffer-composer-installer": "^1.2",
+                "phpstan/extension-installer": "*",
+                "phpstan/phpstan": "^2.0.0",
+                "phpstan/phpstan-strict-rules": "^2.1",
+                "phpunit/phpunit": "^9.6 || ^10.0 || ^11.0 || ^12.0 || ^13.0",
+                "spaze/phpstan-disallowed-calls": "^4.15",
+                "squizlabs/php_codesniffer": "^4.0",
+                "symfony/process": "^5.4 || ^6.0 || ^7.4 || ^8.0"
             },
             "type": "library",
+            "extra": {
+                "phpstan/extension-installer": {
+                    "ignore": [
+                        "spaze/phpstan-disallowed-calls"
+                    ]
+                }
+            },
             "autoload": {
                 "psr-4": {
-                    "Eightfold\\XMLBuilder\\": "./src"
+                    "Eightfold\\XmlBuilder\\": "./src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -41,25 +53,17 @@
             "authors": [
                 {
                     "name": "Josh Bruce",
-                    "email": "josh@8fold.pro"
+                    "email": "josh@8fold.pro",
+                    "homepage": "https://joshbruce.com",
+                    "role": "Lead Developer"
                 }
             ],
             "description": "A library for building XML document and element strings.",
             "support": {
                 "issues": "https://github.com/8fold/php-xml-builder/issues",
-                "source": "https://github.com/8fold/php-xml-builder/tree/2.0.0"
+                "source": "https://github.com/8fold/php-xml-builder/tree/4.0.0"
             },
-            "funding": [
-                {
-                    "url": "https://github.com/8fold",
-                    "type": "github"
-                },
-                {
-                    "url": "https://github.com/joshbruce",
-                    "type": "github"
-                }
-            ],
-            "time": "2022-12-11T03:40:44+00:00"
+            "time": "2026-11-18T20:41:52+00:00"
         }
     ],
     "packages-dev": [

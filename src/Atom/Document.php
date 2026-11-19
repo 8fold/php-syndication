@@ -7,8 +7,8 @@ use Stringable;
 
 use DateTime;
 
-use Eightfold\XMLBuilder\Document as XMLDocument;
-use Eightfold\XMLBuilder\Element;
+use Eightfold\XmlBuilder\Document as XMLDocument;
+use Eightfold\XmlBuilder\Element;
 
 use Eightfold\Syndication\Atom\Title;
 use Eightfold\Syndication\Atom\Generator;
@@ -52,11 +52,15 @@ class Document implements Stringable
     public static function create(
         string $id,
         Title $title,
-        DateTime $updated,
+        DateTime|false $updated,
         Entries $entries,
         ?Authors $authors = null,
         ?Links $links = null
     ): self {
+        if ($updated === false) {
+            $updated = new DateTime();
+        }
+
         return new self(
             id: $id,
             title: $title,
@@ -141,12 +145,9 @@ class Document implements Stringable
 
         $totalAuthors = 0;
         foreach ($this->entries as $entry) {
-            if (
-                is_object($entry) and
-                is_a($entry, Entry::class) and
-                $entry->hasAuthors()
-            ) {
+            if ($entry->hasAuthors()) {
                 $totalAuthors++;
+
             }
         }
         return count($this->entries) === $totalAuthors;
@@ -160,11 +161,7 @@ class Document implements Stringable
 
         $alternatesFound = 0;
         foreach ($this->links as $link) {
-            if (
-                is_object($link) and
-                is_a($link, Link::class) and
-                $link->isAlternate()
-            ) {
+            if ($link->isAlternate()) {
                 $alternatesFound++;
             }
 

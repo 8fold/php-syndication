@@ -3,15 +3,20 @@ declare(strict_types=1);
 
 namespace Eightfold\Syndication\Json;
 
-use Traversable;
 use Iterator;
 use Countable;
 use JsonSerializable;
 
 use Eightfold\Syndication\Json\CustomObject;
 
-class CustomObjects implements Traversable, Iterator, Countable, JsonSerializable
+/**
+ * @implements Iterator<int, CustomObject>
+ */
+class CustomObjects implements Iterator, Countable, JsonSerializable
 {
+    /**
+     * @var list<CustomObject>
+     */
     private array $collection = [];
 
     private int $position = 0;
@@ -23,13 +28,13 @@ class CustomObjects implements Traversable, Iterator, Countable, JsonSerializabl
 
     final private function __construct(CustomObject ...$objects)
     {
-        $this->collection = $objects;
+        $this->collection = array_values($objects);
     }
 
     /**
      * JsonSerializable
      *
-     * @return array<string, string>
+     * @return list<CustomObject>
      **/
     public function jsonSerialize(): array
     {
@@ -53,7 +58,7 @@ class CustomObjects implements Traversable, Iterator, Countable, JsonSerializabl
         $this->position = 0;
     }
 
-    public function key(): int|string
+    public function key(): int
     {
         return $this->position;
     }

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Eightfold\Syndication\Json;
 
-use StdClass;
+use stdClass;
 use Stringable;
 use JsonSerializable;
 
@@ -168,7 +168,7 @@ class Document implements JsonSerializable
     /** JsonSerializable **/
     public function jsonSerialize(): mixed
     {
-        $obj          = new StdClass();
+        $obj          = new stdClass();
         $obj->version = self::VERSION;
         $obj->title   = $this->title;
 
@@ -220,10 +220,8 @@ class Document implements JsonSerializable
 
         if (isset($this->customObjects)) {
             foreach ($this->customObjects as $customObject) {
-                if (is_a($customObject, CustomObject::class)) {
-                    $name = $customObject->name();
-                    $obj->{$name} = $customObject->object();
-                }
+                $name = $customObject->name();
+                $obj->{$name} = $customObject->object();
             }
         }
 

@@ -3,15 +3,20 @@ declare(strict_types=1);
 
 namespace Eightfold\Syndication\Json;
 
-use Traversable;
 use Iterator;
 use Countable;
 use JsonSerializable;
 
 use Eightfold\Syndication\Json\Attachment;
 
-class Attachments implements Traversable, Iterator, Countable, JsonSerializable
+/**
+ * @implements Iterator<int, Attachment>
+ */
+class Attachments implements Iterator, Countable, JsonSerializable
 {
+    /**
+     * @var list<Attachment>
+     */
     private array $collection = [];
 
     private int $position = 0;
@@ -23,13 +28,13 @@ class Attachments implements Traversable, Iterator, Countable, JsonSerializable
 
     final private function __construct(Attachment ...$attachments)
     {
-        $this->collection = $attachments;
+        $this->collection = array_values($attachments);
     }
 
     /**
      * JsonSerializable
      *
-     * @return array<string, string>
+     * @return list<Attachment>
      **/
     public function jsonSerialize(): array
     {
@@ -53,7 +58,7 @@ class Attachments implements Traversable, Iterator, Countable, JsonSerializable
         $this->position = 0;
     }
 
-    public function key(): int|string
+    public function key(): int
     {
         return $this->position;
     }

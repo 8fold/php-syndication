@@ -9,10 +9,7 @@ use Eightfold\Syndication\Rss\Image;
 
 class ImageTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function has_required_aspects(): void
+    public function test_has_required_aspects(): void
     {
         $expected = '<image><url>/image.png</url><title>title</title><link>/feed</link></image>';
 
@@ -22,16 +19,13 @@ class ImageTest extends TestCase
             '/feed'
         );
 
-        $this->assertSame(
+        parent::assertSame(
             $expected,
             $result
         );
     }
 
-    /**
-     * @test
-     */
-    public function can_have_width(): void
+    public function test_can_have_width(): void
     {
         $expected = '<image><url>/image.png</url><title>title</title><link>/feed</link><width>144</width></image>';
 
@@ -42,16 +36,13 @@ class ImageTest extends TestCase
             width: 200
         );
 
-        $this->assertSame(
+        parent::assertSame(
             $expected,
             $result
         );
     }
 
-    /**
-     * @test
-     */
-    public function can_have_height(): void
+    public function test_can_have_height(): void
     {
         $expected = '<image><url>/image.png</url><title>title</title><link>/feed</link><height>400</height></image>';
 
@@ -62,18 +53,17 @@ class ImageTest extends TestCase
             height: 500
         );
 
-        $this->assertSame(
+        parent::assertSame(
             $expected,
             $result
         );
     }
 
-    /**
-     * @test
-     */
-    public function can_have_description(): void
+    public function test_can_have_description(): void
     {
+        // phpcs:disable
         $expected = '<image><url>/image.png</url><title>title</title><link>/feed</link><description>description</description></image>';
+        // phpcs:enable
 
         $result = (string) Image::create(
             '/image.png',
@@ -82,7 +72,7 @@ class ImageTest extends TestCase
             description: 'description'
         );
 
-        $this->assertSame(
+        parent::assertSame(
             $expected,
             $result
         );

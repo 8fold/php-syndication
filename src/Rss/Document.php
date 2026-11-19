@@ -7,8 +7,8 @@ use Stringable;
 
 use DateTime;
 
-use Eightfold\XMLBuilder\Document as XMLDocument;
-use Eightfold\XMLBuilder\Element;
+use Eightfold\XmlBuilder\Document as XMLDocument;
+use Eightfold\XmlBuilder\Element;
 
 use Eightfold\Syndication\Rss\Items;
 use Eightfold\Syndication\Rss\Categories;
@@ -119,14 +119,20 @@ class Document implements Stringable
         return $this;
     }
 
-    public function withPubDate(DateTime $pubDate): self
+    public function withPubDate(DateTime|false $pubDate): self
     {
+        if ($pubDate === false) {
+            $pubDate = new DateTime();
+        }
         $this->pubDate = $pubDate;
         return $this;
     }
 
-    public function withLastBuildDate(DateTime $lastBuildDate): self
+    public function withLastBuildDate(DateTime|false $lastBuildDate): self
     {
+        if ($lastBuildDate === false) {
+            $lastBuildDate = new DateTime();
+        }
         $this->lastBuildDate = $lastBuildDate;
         return $this;
     }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Eightfold\Syndication\Json;
 
 use DateTime;
-use StdClass;
+use stdClass;
 use Stringable;
 use JsonSerializable;
 
@@ -107,14 +107,20 @@ class Item implements JsonSerializable
         return $this;
     }
 
-    public function withDatePublished(DateTime $datePublished): self
+    public function withDatePublished(DateTime|false $datePublished): self
     {
+        if ($datePublished === false) {
+            $datePublished = new DateTime();
+        }
         $this->datePublished = $datePublished;
         return $this;
     }
 
-    public function withDateModified(DateTime $dateModified): self
+    public function withDateModified(DateTime|false $dateModified): self
     {
+        if ($dateModified === false) {
+            $dateModified = new DateTime();
+        }
         $this->dateModified = $dateModified;
         return $this;
     }
@@ -202,7 +208,7 @@ class Item implements JsonSerializable
     /** JsonSerializable **/
     public function jsonSerialize(): mixed
     {
-        $obj = new StdClass();
+        $obj = new stdClass();
         $obj->id = $this->id;
 
         if (strlen($this->url()) > 0) {
@@ -279,10 +285,8 @@ class Item implements JsonSerializable
 
         if (isset($this->customObjects)) {
             foreach ($this->customObjects as $customObject) {
-                if (is_a($customObject, CustomObject::class)) {
-                    $name = $customObject->name();
-                    $obj->{$name} = $customObject->object();
-                }
+                $name = $customObject->name();
+                $obj->{$name} = $customObject->object();
             }
         }
 

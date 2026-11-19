@@ -3,15 +3,20 @@ declare(strict_types=1);
 
 namespace Eightfold\Syndication\Atom;
 
-use Traversable;
 use Iterator;
 use Countable;
 use Stringable;
 
 use Eightfold\Syndication\Atom\Entry;
 
-class Entries implements Traversable, Iterator, Countable, Stringable
+/**
+ * @implements Iterator<int, Entry>
+ */
+class Entries implements Iterator, Countable, Stringable
 {
+    /**
+     * @var list<Entry>
+     */
     private array $collection = [];
 
     private int $position = 0;
@@ -23,18 +28,15 @@ class Entries implements Traversable, Iterator, Countable, Stringable
 
     final private function __construct(Entry ...$entries)
     {
-        $this->collection = $entries;
+        $this->collection = array_values($entries);
     }
 
     public function isValid(): bool
     {
         foreach ($this as $entry) {
-            if (
-                is_object($entry) and
-                is_a($entry, Entry::class) and
-                $entry->isInvalid()
-            ) {
+            if ($entry->isInvalid()) {
                 return false;
+
             }
         }
         return true;
@@ -53,7 +55,7 @@ class Entries implements Traversable, Iterator, Countable, Stringable
     /**
      * JsonSerializable
      *
-     * @return array<string, string>
+     * @return list<Entry>
      **/
     public function jsonSerialize(): array
     {
@@ -77,7 +79,7 @@ class Entries implements Traversable, Iterator, Countable, Stringable
         $this->position = 0;
     }
 
-    public function key(): int|string
+    public function key(): int
     {
         return $this->position;
     }

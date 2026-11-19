@@ -3,15 +3,20 @@ declare(strict_types=1);
 
 namespace Eightfold\Syndication\Atom;
 
-use Traversable;
 use Iterator;
 use Countable;
 use Stringable;
 
 use Eightfold\Syndication\Atom\Author;
 
-class Authors implements Traversable, Iterator, Countable, Stringable
+/**
+ * @implements Iterator<int, Author>
+ */
+class Authors implements Iterator, Countable, Stringable
 {
+    /**
+     * @var list<Author>
+     */
     private array $collection = [];
 
     private int $position = 0;
@@ -23,7 +28,7 @@ class Authors implements Traversable, Iterator, Countable, Stringable
 
     final private function __construct(Author ...$authors)
     {
-        $this->collection = $authors;
+        $this->collection = array_values($authors);
     }
 
     /** Stringable **/
@@ -39,7 +44,7 @@ class Authors implements Traversable, Iterator, Countable, Stringable
     /**
      * JsonSerializable
      *
-     * @return array<string, string>
+     * @return list<Author>
      **/
     public function jsonSerialize(): array
     {
@@ -63,7 +68,7 @@ class Authors implements Traversable, Iterator, Countable, Stringable
         $this->position = 0;
     }
 
-    public function key(): int|string
+    public function key(): int
     {
         return $this->position;
     }

@@ -5,7 +5,7 @@ namespace Eightfold\Syndication\Rss;
 
 use Stringable;
 
-use Eightfold\XMLBuilder\Element;
+use Eightfold\XmlBuilder\Element;
 
 use Eightfold\Syndication\Rss\Enums\SkipDaysDay;
 
@@ -32,7 +32,7 @@ class SkipDays implements Stringable
     final private function __construct(string ...$days)
     {
         foreach ($days as $day) {
-            if (in_array($day, $this->days) === false) {
+            if (in_array($day, $this->days, true) === false) {
                 $this->days[] = $day;
             }
         }
